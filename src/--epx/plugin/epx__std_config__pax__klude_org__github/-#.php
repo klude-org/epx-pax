@@ -49,7 +49,6 @@ final class epx__std_config__pax__klude_org__github extends \stdClass {
         }
         \define('_\LOCAL_DIR', \_\INCP_DIR.'/.local');
         
-        
         global $_;
         global $CFG_MODE; //empty is 'lock', 1 is 'auto', 2 is force, 3 is 'force and test';
         (isset($_) && \is_array($_)) OR $_ = [];
@@ -142,7 +141,7 @@ final class epx__std_config__pax__klude_org__github extends \stdClass {
                                 }
                             } else if(\str_ends_with($w,".zip")){
                                 $com.=  "namespace { \$_ALT[\\{$k}::class] = function(){ o()->alt?->load(\\{$k}::class,'{$w}'); }; }".PHP_EOL;
-                            } else if(\preg_match(static::REGEX_CLASS_FQN, $w) && \preg_match(static::REGEX_CLASS_FQN, $k, $m)){
+                            } else if(\preg_match(\_\REGEX_CLASS_FQN, $w) && \preg_match(\_\REGEX_CLASS_FQN, $k, $m)){
                                 $d = (\is_array($a = $v['#config'] ?? null)) ? \var_export($a) : '';
                                 if($m[2]){
                                     $com.=  "namespace {$m[2]} { \$_ALT[\\{$k}::class] = function(){ final class {$m[3]} extends \\{$w} { {$d} } }; }".PHP_EOL;
@@ -178,7 +177,7 @@ final class epx__std_config__pax__klude_org__github extends \stdClass {
                         LOCK_EX // prevents race when testing and you have ton of simultaneous requests
                     );
                 })();
-            }            
+            }
         }
 
         if($CFG_MODE === 2){ exit(); }
