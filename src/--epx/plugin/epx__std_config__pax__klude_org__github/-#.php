@@ -122,6 +122,7 @@ final class epx__std_config__pax__klude_org__github extends \stdClass {
                                 }
                             }
                         }
+                        yield \_\ABACA_DIR => true;
                         yield \_\PLUGIN_DIR => true;
                         yield \_\VND_DIR => true;
                         foreach(\explode(PATH_SEPARATOR,\get_include_path()) as $v){

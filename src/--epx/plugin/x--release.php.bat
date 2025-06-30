@@ -1,0 +1,73 @@
+::<?php echo "\r   \r"; if(0): ?>
+@echo off
+php "%~f0" %*
+exit /b 0
+<?php endif;
+
+(new class extends \stdClass {
+
+    public function __construct(){
+        $this->TARGET_DIR = __DIR__ . "/../../../plugins";
+        $this->ensureDir($this->TARGET_DIR);
+        $this->SOURCE_DIR = __DIR__;
+    }
+
+    public function __invoke(){
+        $this->ensureDir($this->TARGET_DIR);
+        $dirs = array_filter(glob($this->SOURCE_DIR . '/*'), 'is_dir');
+
+        foreach ($dirs as $dirPath) {
+            $dirName = basename($dirPath);
+            $zipFile = "{$this->TARGET_DIR}/{$dirName}.zip";
+
+            // Always recreate the base zip
+            $this->createZip($dirPath, $zipFile);
+
+            $hash = hash_file("sha256", $zipFile);
+            $pattern = "{$this->TARGET_DIR}/{$dirName}-*-{$hash}.zip";
+
+            // Only make hash-named copy if not already exists
+            if (empty(glob($pattern))) {
+                $timestamp = date("Y-md-Hi-s");
+                $hashFile = "{$this->TARGET_DIR}/{$dirName}-{$timestamp}-{$hash}.zip";
+                copy($zipFile, $hashFile);
+                echo "Copied: {$hashFile}\n";
+            } else {
+                echo "Skipped copy (already exists for SHA): $dirName\n";
+            }
+        }
+    }
+
+    private function createZip(string $sourceDir, string $zipFile): void {
+        if (file_exists($zipFile)) {
+            unlink($zipFile);
+        }
+
+        $zip = new ZipArchive();
+        if ($zip->open($zipFile, ZipArchive::CREATE) !== TRUE) {
+            throw new RuntimeException("Cannot create zip file: $zipFile");
+        }
+
+        $baseLen = strlen(dirname($sourceDir)) + 1;
+
+        $rii = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($sourceDir, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::LEAVES_ONLY
+        );
+
+        foreach ($rii as $file) {
+            $filePath = $file->getPathname();
+            $localPath = substr($filePath, $baseLen); // keep top dir
+            $zip->addFile($filePath, $localPath);
+        }
+
+        $zip->close();
+    }
+
+    private function ensureDir($path): void {
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+    }
+
+})();
