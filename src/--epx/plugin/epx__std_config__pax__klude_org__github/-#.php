@@ -122,9 +122,28 @@ final class epx__std_config__pax__klude_org__github extends \stdClass {
                                 }
                             }
                         }
-                        yield \_\ABACA_DIR => true;
-                        yield \_\PLUGIN_DIR => true;
-                        yield \_\VND_DIR => true;
+                        foreach([
+                            
+                        ] as $d){
+                            if(\is_dir($d = \_\ABACA_DIR)){ 
+                                $this->trace .= "# Module 'ABACA': Included '{$d}'";
+                                yield $d => true;
+                            } else {
+                                $this->trace .= "# Module 'ABACA': Doesn't Exist";
+                            }
+                        }
+                        if(\is_dir($d = \_\PLUGIN_DIR)){ 
+                            $this->trace .= "# Module 'PLUGIN': Included '{$d}'";
+                            yield $d => true;
+                        } else {
+                            $this->trace .= "# Module 'PLUGIN': Doesn't Exist";
+                        }
+                        if(\is_dir($d = \_\VND_DIR)){ 
+                            $this->trace .= "# Module 'VND': Included '{$d}'";
+                            yield $d => true;
+                        } else {
+                            $this->trace .= "# Module 'VND': Doesn't Exist";
+                        }
                         foreach(\explode(PATH_SEPARATOR,\get_include_path()) as $v){
                             yield \str_replace('\\','/', $v) => true;
                         }
