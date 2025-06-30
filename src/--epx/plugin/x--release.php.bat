@@ -8,7 +8,6 @@ exit /b 0
 
     public function __construct(){
         $this->TARGET_DIR = __DIR__ . "/../../../plugins";
-        $this->ensureDir($this->TARGET_DIR);
         $this->SOURCE_DIR = __DIR__;
     }
 
@@ -21,7 +20,7 @@ exit /b 0
             $zipFile = "{$this->TARGET_DIR}/{$dirName}.zip";
 
             // Always recreate the base zip
-            $this->createZip($dirPath, $zipFile);
+            $this->createZip($dirPath, $zipFile, $dirName);
 
             $hash = hash_file("sha256", $zipFile);
             $pattern = "{$this->TARGET_DIR}/{$dirName}-*-{$hash}.zip";
@@ -38,7 +37,7 @@ exit /b 0
         }
     }
 
-    private function createZip(string $sourceDir, string $zipFile): void {
+    private function createZip(string $sourceDir, string $zipFile, string $topLevelName): void {
         if (file_exists($zipFile)) {
             unlink($zipFile);
         }
@@ -48,8 +47,6 @@ exit /b 0
             throw new RuntimeException("Cannot create zip file: $zipFile");
         }
 
-        $baseLen = strlen(dirname($sourceDir)) + 1;
-
         $rii = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($sourceDir, FilesystemIterator::SKIP_DOTS),
             RecursiveIteratorIterator::LEAVES_ONLY
@@ -57,8 +54,9 @@ exit /b 0
 
         foreach ($rii as $file) {
             $filePath = $file->getPathname();
-            $localPath = substr($filePath, $baseLen); // keep top dir
-            $zip->addFile($filePath, $localPath);
+            $relativePath = substr($filePath, strlen($sourceDir) + 1);
+            $zipPath = $topLevelName . '/' . $relativePath;
+            $zip->addFile($filePath, $zipPath);
         }
 
         $zip->close();
