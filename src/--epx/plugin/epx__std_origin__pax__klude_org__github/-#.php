@@ -46,8 +46,17 @@ final class epx__std_origin__pax__klude_org__github extends \stdClass implements
         }
         return $this->_[$n] ?? null;
     }
+    
     public function jsonSerialize():mixed {
         return $this->_;
+    }
+    
+    public function route(){
+        if(\class_exists(\_\ui::class)){
+            return \_\ui::_()->route();
+        } else {
+            return function(){ echo "Missing USER INTERFACE"; };
+        }
     }
     
     public static function file(string $n, string $suffix = null){
@@ -193,8 +202,6 @@ final class epx__std_origin__pax__klude_org__github extends \stdClass implements
         $intfc = \_\INTFC;
         $this->cfg_cache_t = \is_file($this->cfg_cache_f = \_\LOCAL_DIR."/.config-cache-{$intfc}.php") ? \filemtime($this->cfg_cache_f) : 0;
         if($CFG_MODE || !$this->cfg_cache_t){
-            $this->ds = \_\START_DIR;
-            $this->dl = \_\INCP_DIR.'/--epx';
             $this->cfg_parts = [
                 \_\START_DIR."/.lib-config.php" => 1,
                 \_\START_DIR."/.lib-config-{$intfc}.php" => 1,
@@ -203,6 +210,7 @@ final class epx__std_origin__pax__klude_org__github extends \stdClass implements
                 \_\LOCAL_DIR."/.config.php" => 1,
                 \_\LOCAL_DIR."/.config-{$intfc}.php" => 1,
                 \_\INCP_DIR."/index.php" => 0,
+                __FILE__ => 0,
             ];
             if(!($build = ($CFG_MODE > 1))){
                 foreach($this->cfg_parts as $k => $v){
@@ -215,6 +223,8 @@ final class epx__std_origin__pax__klude_org__github extends \stdClass implements
             if($build){
                 (function(){
                     $_ = [];
+                    $this->dl = \_\INCP_DIR.'/--epx';
+                    $this->ds = \_\START_DIR;
                     $this->trace = \str_pad("# ",80,"#").PHP_EOL;
                     foreach($this->cfg_parts as $k => $v){
                         if($v && \is_file($k)){
@@ -225,45 +235,61 @@ final class epx__std_origin__pax__klude_org__github extends \stdClass implements
                     $this->_ = $_;
                     $this->_['LSP'] = \array_filter(\iterator_to_array((function(){
                         yield $this->dl => true;
-                        $this->trace .= "# Library directory included: '".\str_replace('\\','/', $this->dl)."'".PHP_EOL;
+                        $this->trace .= "# Library directory included: '{$this->dl}'".PHP_EOL;
                         foreach($this->_['LIBRARIES'] ?? [] as $dx => $en){
+                            $dx = \str_replace('\\','/', $dx);
                             if($en){
                                 if(\is_dir($dx)){
-                                    $this->trace .= "# Library directory included: '".\str_replace('\\','/', $dx)."'".PHP_EOL;
+                                    $this->trace .= "# Library directory included: '{$dx}'".PHP_EOL;
                                     yield \str_replace('\\','/', \realpath($dx)) => true;
                                 } else {
-                                    $this->trace .= "# Library directory not found: '".\str_replace('\\','/', $dx)."'".PHP_EOL;
+                                    $this->trace .= "# Library directory not found: '{$dx}'".PHP_EOL;
                                 }
                             } else {
-                                $this->trace .= "# Library directory disabled: '".\str_replace('\\','/', $dx)."'".PHP_EOL;
+                                $this->trace .= "# Library directory disabled: '{$dx}'".PHP_EOL;
                             }
                         }
                         if($this->ds != $this->dl){
                             yield $this->ds => true;
-                            $this->trace .= "# Library directory included: '".\str_replace('\\','/', $this->ds)."'".PHP_EOL;
+                            $this->trace .= "# Library directory included: '{$this->ds}'".PHP_EOL;
                         }
                     })()));
                     $this->_['TSP']['PATH'] = \implode(PATH_SEPARATOR, $this->_['TSP']['LIST'] = \array_keys(\array_filter(\iterator_to_array((function(){
-                        foreach($this->_['MODULES'] ?? [] as $m => $en){
-                            foreach($this->_['LSP'] as $lk => $lv){
-                                if($lv){
-                                    if(\file_exists($d = "{$lk}/{$m}")){
-                                        $this->trace .= "# Module '{$m}': Included {$d}".PHP_EOL; 
-                                        yield \str_replace('\\','/', $d) => true;
-                                        break;
-                                    } else {
-                                        $this->trace .= "# Module '{$m}': FAILED: '{$lk}/{$m}'".PHP_EOL;
+                        $modules = [];
+                        foreach($this->_['MODULES'] ?? [] as $k => $v){
+                            $modules[\str_replace('\\','/', $k)] = $v ? true : false;
+                        }
+                        foreach(\explode(PATH_SEPARATOR,\get_include_path()) as $v){
+                            $modules[\str_replace('\\','/', $v)] ??= true;
+                        }
+                        foreach($modules as $m => $en){
+                            if($en){
+                                $found = false;
+                                if((($m[0]??'')=='/' || ($m[1]??'')==':')){
+                                    $found = \is_dir($m);
+                                    $d = $m;
+                                } else if(\str_starts_with($m,'epx__module_')) {
+                                    if(\class_exists($m)){
+                                        $d = \dirname((new \ReflectionClass($m))->getFileName());
+                                        $found = true;
                                     }
                                 } else {
-                                    $this->trace .= "# Module '{$m}': Disabled: '{$lk}/{$m}'".PHP_EOL;
+                                    foreach($this->_['LSP'] as $lk => $lv){
+                                        if(\file_exists($d = "{$lk}/{$m}")){
+                                            $found = true;
+                                            break;
+                                        }
+                                    }
                                 }
+                                if($found){
+                                    yield \str_replace('\\','/', $d) => true;
+                                    $this->trace .= "# Module Included '{$m}': '{$d}'".PHP_EOL; 
+                                } else {
+                                    $this->trace .= "# Module Failed!! '{$m}'".PHP_EOL;
+                                }
+                            } else {
+                                $this->trace .= "# Module Disabled '{$m}'".PHP_EOL;
                             }
-                        }
-                        yield \_\ABACA_DIR => true;
-                        yield \_\PLUGIN_DIR => true;
-                        yield \_\VND_DIR => true;
-                        foreach(\explode(PATH_SEPARATOR,\get_include_path()) as $v){
-                            yield \str_replace('\\','/', $v) => true;
                         }
                     })()))));
                     $com = '';
@@ -314,7 +340,10 @@ final class epx__std_origin__pax__klude_org__github extends \stdClass implements
                         $contents, 
                         LOCK_EX // prevents race when testing and you have ton of simultaneous requests
                     );
-                })();
+                })->bindTo((object)[
+                   'cfg_parts' => $this->cfg_parts,
+                   'cfg_cache_f' => $this->cfg_cache_f
+                ])();
             }
         }
 

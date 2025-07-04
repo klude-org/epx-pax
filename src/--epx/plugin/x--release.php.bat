@@ -7,28 +7,30 @@ exit /b 0
 (new class extends \stdClass {
 
     public function __construct(){
-        $this->TARGET_DIR = __DIR__ . "/../../../plugins";
+        $this->PLUGINS_DIR = __DIR__ . "/../../../plugins";
+        $this->ARCHIVE_DIR = __DIR__ . "/../../../plugins-archive/.local";
         $this->SOURCE_DIR = __DIR__;
     }
 
     public function __invoke(){
-        $this->ensureDir($this->TARGET_DIR);
+        $this->ensureDir($this->PLUGINS_DIR);
+        $this->ensureDir($this->ARCHIVE_DIR);
         $dirs = array_filter(glob($this->SOURCE_DIR . '/*'), 'is_dir');
 
         foreach ($dirs as $dirPath) {
             $dirName = basename($dirPath);
-            $zipFile = "{$this->TARGET_DIR}/{$dirName}.zip";
+            $zipFile = "{$this->PLUGINS_DIR}/{$dirName}.zip";
 
             // Always recreate the base zip
             $this->createZip($dirPath, $zipFile, $dirName);
 
             $hash = hash_file("sha256", $zipFile);
-            $pattern = "{$this->TARGET_DIR}/{$dirName}-*-{$hash}.zip";
+            $pattern = "{$this->ARCHIVE_DIR}/{$dirName}-*-{$hash}.zip";
 
             // Only make hash-named copy if not already exists
             if (empty(glob($pattern))) {
                 $timestamp = date("Y-md-Hi-s");
-                $hashFile = "{$this->TARGET_DIR}/{$dirName}-{$timestamp}-{$hash}.zip";
+                $hashFile = "{$this->ARCHIVE_DIR}/{$dirName}-{$timestamp}-{$hash}.zip";
                 copy($zipFile, $hashFile);
                 echo "Copied: {$hashFile}\n";
             } else {
