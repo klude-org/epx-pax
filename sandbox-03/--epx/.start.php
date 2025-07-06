@@ -48,17 +48,20 @@ namespace _ {
     1 AND \spl_autoload_register();
     global $START;
     $START ??= "epx__start_1__pax__klude_org__github";
-    if(!\class_exists($START)){
-        \file_put_contents(
-            __DIR__."/".($F = "{$START}/-#.php"), 
-            \file_get_contents(
-                "https://raw.githubusercontent.com/klude-org/epx-pax/main/plugins/{$F}"
-            )
-        );
+    \class_exists($START) OR (function($START){
+        $file = "{$START}/-#.php";
+        $localfile = __DIR__."/{$file}";
+        $url = "https://raw.githubusercontent.com/klude-org/epx-pax/main/plugins/".\urlencode($file);
+        if(!($contents = \file_get_contents($url))){
+            echo "Failed: Unable to locate: {$START}".PHP_EOL;
+            exit();
+        }
+        \is_dir($d = \dirname($localfile)) OR \mkdir($d, 0777, true);
+        \file_put_contents($localfile, $contents);
         if(!\class_exists($START)){
             echo "Failed: Unable to locate: {$START}".PHP_EOL;
-            return function(){ };
+            exit();
         } 
-    }
+    })($START);
     return $START::_();
 }

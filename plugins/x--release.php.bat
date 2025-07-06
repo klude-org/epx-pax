@@ -7,7 +7,7 @@ exit /b 0
 (new class extends \stdClass {
 
     public function __construct(){
-        $this->PLUGINS_DIR = __DIR__ . "/../../../plugins";
+        $this->PLUGINS_DIR = __DIR__;
         $this->ARCHIVE_DIR = __DIR__ . "/../../../plugins-archive/.local";
         $this->SOURCE_DIR = __DIR__;
     }
@@ -20,7 +20,7 @@ exit /b 0
         foreach ($dirs as $dirPath) {
             $dirName = basename($dirPath);
             $zipFile = "{$this->PLUGINS_DIR}/{$dirName}.zip";
-
+            
             // Always recreate the base zip
             $this->createZip($dirPath, $zipFile, $dirName);
 
