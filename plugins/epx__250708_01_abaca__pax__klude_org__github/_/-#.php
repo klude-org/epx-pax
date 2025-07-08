@@ -1,15 +1,35 @@
 <?php
 
-class epx__env_1__pax__klude_org__github extends \stdClass implements \ArrayAccess, \JsonSerializable {
+final class _ extends \stdClass {
+    
+    public const COM_ROOT = '_/com';
     
     public static function _() { static $i;  return $i ?: ($i = new static()); }
     
-    public readonly array $_;
-    
     private function __construct(){ 
-        $this->_ = $_ENV;
-        $_ENV = $this;
-        function o(){ static $I; return $I ?? $I = \_::_(); }
+        function o(string|object $n = null){ 
+            static $J = [];
+            static $K = [];
+            if($n === null){
+                static $I; return $I ?? $I = \_::_();
+            } else if(\is_string($n)){
+                return ($J[$n] ?? ((function($n) use(&$J,&$K){
+                    if($n){
+                        if($o = \_\env::_()->component($n)){
+                            $J[$n] = $o;
+                            $K[\spl_object_hash($o)] = $n;
+                            return $o;
+                        } else {
+                            return false;
+                        }
+                    } else{
+                        return \_::_();
+                    }
+                })($n)) ?: null);
+            } else {
+                return $K[\spl_object_hash($n)] ?? null;
+            }
+        }
     }
     
     public function __get($n){
@@ -22,39 +42,11 @@ class epx__env_1__pax__klude_org__github extends \stdClass implements \ArrayAcce
         )) ?: null;
     }    
     
-    public function offsetSet($n, $v):void { 
-        throw new \Exception('Set-Accessor is not supported for class '.static::class);
-    }
-    public function offsetExists($n):bool { 
-        return isset($this->_[$n]);
-    }
-    public function offsetUnset($n):void { 
-        throw new \Exception('Unset-Accessor is not supported for class '.static::class);
-    }
-    public function offsetGet($n):mixed { 
-        if(!\array_key_exists($n, $this->_)){
-            $k = "FW_{$n}";
-            $this->_[$n] = 
-                (\defined($k) ? \constant($k) : null)
-                ?? ((($r = \getenv($k)) !== false) ? $r : null)
-                ?? $_SERVER[$k]
-                ?? $_SERVER["REDIRECT_{$k}"]
-                ?? $_SERVER["REDIRECT_REDIRECT_{$k}"]
-                ?? null
-            ;
-        }
-        return $this->_[$n] ?? null;
-    }
-    
-    public function jsonSerialize():mixed {
-        return $this->_;
-    }
-    
     public function route(){
-        if(\class_exists(\_\ui::class)){
-            return \_\ui::_()->route();
+        if(\class_exists(\_\env::class)){
+            return \_\env::_()->route();
         } else {
-            return function(){ echo "Missing USER INTERFACE"; };
+            return function(){ echo "Missing ENV"; };
         }
     }
     

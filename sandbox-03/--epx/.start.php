@@ -47,7 +47,7 @@ namespace _ {
     0 AND \error_reporting(E_ALL);
     1 AND \set_include_path(
         \_\START_DIR.PATH_SEPARATOR
-        .\_\START_DIR.'/sandbox'.PATH_SEPARATOR
+        //.\_\START_DIR.'/sandbox'.PATH_SEPARATOR
         .\_\START_DIR.'/.local-plugins'.PATH_SEPARATOR
         .\get_include_path()
     );
