@@ -1,4 +1,4 @@
-<?php namespace epx__250707_01_com__pax__klude_org__github\component\_;
+<?php namespace epx__250707_01_com__pax__klude_org__github\component\nodes;
 
 trait __t {
     

@@ -3,6 +3,8 @@
 echo __FILE__.\_\BR;
 \_\pre($this); echo \_\BR;
 \_\pre(o('customer')->model[3]); echo \_\BR;
+\_\pre(o('customer')->model->get(2)); echo \_\BR;
+
 
 
 

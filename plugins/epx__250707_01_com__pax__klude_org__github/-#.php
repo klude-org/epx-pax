@@ -6,10 +6,10 @@ class epx__250707_01_com__pax__klude_org__github {
     
     protected function __construct(){
         \class_alias(__CLASS__.'\\component', \_\i\component::class);
-        \class_alias(__CLASS__.'\\component\\model', \_\i\component\model::class);
+        \class_alias(__CLASS__.'\\component\\nodes\\model', \_\i\component\nodes\model::class);
     }
     
-    public function node($n){
+    public function component($n){
         if(\class_exists($class = \str_replace('/','\\', static::class."\\{$n}"))){
             $o = $class::_();
             return $o;

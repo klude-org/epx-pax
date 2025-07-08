@@ -19,7 +19,7 @@ final class _ extends \stdClass implements \ArrayAccess, \JsonSerializable {
             } else if(\is_string($n)){
                 return ($J[$n] ?? ((function($n) use(&$J,&$K){
                     if($n){
-                        if($o = \_\com::_()->node($n)){
+                        if($o = \_\com::_()->component($n)){
                             $J[$n] = $o;
                             $K[\spl_object_hash($o)] = $n;
                             return $o;

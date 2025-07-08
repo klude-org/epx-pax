@@ -27,14 +27,14 @@ abstract class component {
     public static function nested_class($path){
         $class = static::class;
         do{
-            if(\class_exists($c = "{$class}\\_\\{$path}")){
+            if(\class_exists($c = "{$class}\\{$path}")){
                 return $c;
             }
         } while($class = \get_parent_class($class));
     }
     
     public function node($path,...$args){
-        return \_\i\type::_(static::class)->nest()?->type_hh($path)?->instantiate($this,...$args);
+        return \_\i\type::_(static::class)->nest()?->type_hh("nodes\\{$path}")?->instantiate($this,...$args);
     }
     
     public function file(string $path, string $suffix = null){

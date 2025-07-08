@@ -1,6 +1,6 @@
-<?php namespace epx__250707_02_customer__pax__klude_org__github ;
+<?php namespace epx__250707_02_customer__pax__klude_org__github\nodes ;
 
-class model extends \_\i\component\model {
+class model extends \_\i\component\nodes\model {
     
     protected function i__struct(){
         return [
@@ -20,6 +20,10 @@ class model extends \_\i\component\model {
             "address_line_1" => "TEXT NULL",
             "address_line_2" => "TEXT NULL",
         ];    
+    }
+    
+    public function get($id){
+        return $this[$id];
     }
     
 }
