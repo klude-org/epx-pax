@@ -29,7 +29,7 @@ final class customer extends \epx__component__pax__klude_org__github {
             <tr>
                 
             </tr>
-        <?php };
+        <?php }; 
         
         $this->views['xui/listing/item_card'] = function($row){ ?>
             

@@ -1,8 +1,6 @@
 <?php 
 
-\defined('_\MSTART') OR \define('_\MSTART', \microtime(true));
-
-final class epx__start_1__pax__klude_org__github {
+final class epx__250706_01_start__pax__klude_org__github {
     
     public static function _(){
         
@@ -19,8 +17,6 @@ final class epx__start_1__pax__klude_org__github {
         
         \define('_\SIG_START', \_\MSTART);
         \define('_\CWD', \str_replace('\\','/', \getcwd()));
-        \define('_\START_FILE', \str_replace('\\','/', __FILE__));
-        \define('_\START_DIR', \dirname(\_\START_FILE,2));
         \define('_\ABACA_DIR', \_\START_DIR.'/abaca');
         \define('_\SCRATCH_DIR', \dirname(\_\START_DIR).'/.local');
         \define('_\OB_OUT', \ob_get_level());
@@ -279,6 +275,7 @@ final class epx__start_1__pax__klude_org__github {
             };
         }
         \define('_\LOCAL_DIR', \_\INCP_DIR.'/.local');
+        \define('_\DATA_DIR', \_\LOCAL_DIR.'/data');
         
         global $_;
         global $CFG_MODE; //empty is 'lock', 1 is 'auto', 2 is force, 3 is 'force and test';
@@ -363,7 +360,7 @@ final class epx__start_1__pax__klude_org__github {
                                 if((($m[0]??'')=='/' || ($m[1]??'')==':')){
                                     $found = \is_dir($m);
                                     $d = $m;
-                                } else if(\str_starts_with($m,'epx__module_')) {
+                                } else if(\str_starts_with($m,'epx__')) {
                                     if(\class_exists($m)){
                                         $d = \dirname((new \ReflectionClass($m))->getFileName());
                                         $found = true;

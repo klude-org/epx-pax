@@ -1,6 +1,6 @@
 <?php 
 
-1 AND $_["MODULES"][\epx__module_abaca_250626__pax__klude_org__github::class] = true;
+1 AND $_["MODULES"][\epx__250626_01_abaca__pax__klude_org__github::class] = true;
 
 1 AND $_[\_\db::class]['#'] = \epx__std_db__pax__klude_org__github::class;
 0 AND $_[\_\db::class]['HOSTNAME'] = 'localhost';

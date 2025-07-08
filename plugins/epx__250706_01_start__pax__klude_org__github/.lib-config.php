@@ -1,6 +1,6 @@
 <?php 
 
-1 AND $_["MODULES"][\epx__module_abaca_250626__pax__klude_org__github::class] = true;
+1 AND $_["MODULES"][\epx__250626_01_abaca__pax__klude_org__github::class] = true;
 
 1 AND $_[\_::class]['#'] = \epx__env_1__pax__klude_org__github::class;
 

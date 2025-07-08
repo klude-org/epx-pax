@@ -38,19 +38,26 @@
 # ######################################################################################################################
 #region START
 namespace _ { 
-    \defined('_\PSTART') OR \define('_\PSTART', \microtime(true));
+    \defined('_\MSTART') OR \define('_\MSTART', \microtime(true));
+    \define('_\START_FILE', \str_replace('\\','/', __FILE__));
+    \define('_\START_DIR', \dirname(\_\START_FILE));
     1 AND \ini_set('display_errors', 0);
     1 AND \ini_set('display_startup_errors', 1);
     1 AND \ini_set('error_reporting', E_ALL);
     0 AND \error_reporting(E_ALL);
-    1 AND \set_include_path(__DIR__.PATH_SEPARATOR.__DIR__.'/.local-abaca'.PATH_SEPARATOR.\get_include_path());
+    1 AND \set_include_path(
+        \_\START_DIR.PATH_SEPARATOR
+        .\_\START_DIR.'/sandbox'.PATH_SEPARATOR
+        .\_\START_DIR.'/.local-plugins'.PATH_SEPARATOR
+        .\get_include_path()
+    );
     1 AND \spl_autoload_extensions("-#.php,/-#.php");
     1 AND \spl_autoload_register();
     global $START;
-    $START ??= "epx__start_1__pax__klude_org__github";
+    $START ??= "epx__250706_01_start__pax__klude_org__github";
     \class_exists($START) OR (function($START){
         $file = "{$START}/-#.php";
-        $localfile = __DIR__."/{$file}";
+        $localfile = \_\START_DIR."/{$file}";
         $url = "https://raw.githubusercontent.com/klude-org/epx-pax/main/plugins/".\urlencode($file);
         if(!($contents = \file_get_contents($url))){
             echo "Failed: Unable to locate: {$START}".PHP_EOL;
