@@ -1,6 +1,6 @@
-<?php namespace epx__neo_ui__pax__klude_org__github;
+<?php namespace epx__250627_01_neo_ui__pax__klude_org__github;
 
-class web extends \epx__neo_ui__pax__klude_org__github {
+class web extends \epx__250627_01_neo_ui__pax__klude_org__github {
     
     use \_\i\singleton__t;
     

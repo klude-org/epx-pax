@@ -1,14 +1,15 @@
 ::<?php echo "\r   \r"; if(0): ?>
 @echo off
-php "%~f0" %*
+C:/xampp/current/php__xdbg/php.exe "%~f0" %*
+:: php "%~f0" %*
 exit /b 0
 <?php endif;
 
 (new class extends \stdClass {
 
     public function __construct(){
-        $this->PLUGINS_DIR = __DIR__;
-        $this->ARCHIVE_DIR = __DIR__ . "/../../../plugins-archive/.local";
+        $this->PLUGINS_DIR = __DIR__ . "/../plugin-release";
+        $this->ARCHIVE_DIR = __DIR__ . "/../plugin-archive/.local";
         $this->SOURCE_DIR = __DIR__;
     }
 

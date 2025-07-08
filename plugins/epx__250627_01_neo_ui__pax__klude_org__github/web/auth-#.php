@@ -1,4 +1,4 @@
-<?php namespace epx__neo_ui__pax__klude_org__github\web;
+<?php namespace epx__250627_01_neo_ui__pax__klude_org__github\web;
 
 class auth implements \ArrayAccess, \JsonSerializable {
     

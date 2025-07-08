@@ -1,4 +1,4 @@
-<?php namespace epx__neo_ui__pax__klude_org__github\web;
+<?php namespace epx__250627_01_neo_ui__pax__klude_org__github\web;
 
 class view {
     
@@ -37,7 +37,7 @@ class view {
             } else {
                 throw new \Exception("Invalid plugin expression");
             }
-        } else if($expr instanceof \epx__neo_ui__pax__klude_org__github\web\plugin_pack\__i) {
+        } else if($expr instanceof \epx__250627_01_neo_ui__pax__klude_org__github\web\plugin_pack\__i) {
             throw new \Exception("Plugin pack is not Implemented");
         } else if($expr instanceof \SplFileInfo) {
             throw new \Exception("Plugin resolve by file is not Implemented");

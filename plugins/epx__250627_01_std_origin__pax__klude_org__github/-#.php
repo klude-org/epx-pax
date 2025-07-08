@@ -1,6 +1,6 @@
 <?php
 
-final class epx__std_origin__pax__klude_org__github extends \stdClass implements \ArrayAccess, \JsonSerializable {
+final class epx__250627_01_std_origin__pax__klude_org__github extends \stdClass implements \ArrayAccess, \JsonSerializable {
     
     public static function _() { static $i;  return $i ?: ($i = new static()); }
     

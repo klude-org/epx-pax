@@ -1,6 +1,6 @@
 <?php
 
-abstract class epx__neo_ui__pax__klude_org__github extends \stdClass {
+abstract class epx__250627_01_neo_ui__pax__klude_org__github extends \stdClass {
     
     public object $vars;
 
