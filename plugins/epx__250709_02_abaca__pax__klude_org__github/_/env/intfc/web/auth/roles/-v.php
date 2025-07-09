@@ -77,7 +77,7 @@
                     </a>
                 <?php endforeach ?>
             </div>
-            <p class="mt-5 mb-3 text-muted"><a href="https://klude.com.au">klude.com.au</a> &copy; 2017–2023</p>
+            <p class="mt-5 mb-3 text-muted"><a href="https://klude.com.au">klude.com.au</a> &copy; 2017–2025</p>
         </form>
     </main>
 </div>

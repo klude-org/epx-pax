@@ -240,28 +240,30 @@ class auth extends \stdClass implements \ArrayAccess, \JsonSerializable {
         ];
         if(\in_array('*', $portals)){
             foreach(\_::glob('__*', GLOB_ONLYDIR) as $f){
-                if($k = \substr(\basename($f),2)){
-                    $name = \ucwords(\str_replace('_',' ',$k));
+                if($j = \substr(\basename($f),2)){
+                    $k = '--'.($n = \ltrim($j,'-_'));
+                    $name = \ucwords(\str_replace('_',' ',$n));
                     $select_options[$k] = [
                         'value' => $k, 
                         'label'=> $name,
                         'is_selected' => (\_\REQ['portal'] == $k),
                         'href' => \_\SITE_URL.($k 
-                            ? "/--{$k}".($role ? ".{$role}" : '') 
+                            ? "/{$k}".($role ? ".{$role}" : '') 
                             : "" //($role ? "/--.{$role}" : '') 
                         ),
                     ];
                 }
             }
         } else {
-            foreach($portals as $k){
-                $name = \ucwords(\str_replace('_',' ',$k));
+            foreach($portals as $j){
+                $k = '--'.($n = \ltrim($j,'-_'));
+                $name = \ucwords(\str_replace(['-','_'],[' ',' '],$n));
                 $select_options[$k] = [
                     'value' => $k, 
                     'label'=> $name,
                     'is_selected' => (\_\REQ['portal'] == $k),
                     'href' => \_\SITE_URL.($k 
-                        ? "/--{$k}".($role ? ".{$role}" : '') 
+                        ? "/{$k}".($role ? ".{$role}" : '') 
                         : "" //($role ? "/--.{$role}" : '') 
                     ),
                 ];

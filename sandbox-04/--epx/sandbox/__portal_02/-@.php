@@ -246,8 +246,7 @@
                             <span class="flex-fill d-none d-sm-inline mx-1" style="max-width:110px; overflow:hidden"><?=$footer->label?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="<?='?--auth=portals'?>">Change Portal</a></li>
-                            <li><a class="dropdown-item" href="<?='?--auth=roles'?>">Change Role</a></li>
+                            <li><a class="dropdown-item" href="<?='?--auth=facet'?>">Switch Portal</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <?php foreach($footer->nav as $k => $v): ?>
                                 <?php if($v == '-'): ?>
