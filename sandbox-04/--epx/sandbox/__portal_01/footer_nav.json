@@ -1,0 +1,31 @@
+[
+    {
+        "icon":"",
+        "label":"New Project ...", 
+        "en": 1, 
+        "code":"--user/new_project", 
+        "url":"--user/new_project"
+    },
+    {
+        "icon":"",
+        "label":"Settings", 
+        "en": 1, 
+        "code":"--user/settings", 
+        "url":"--user/settings"
+    },
+    {
+        "icon":"",
+        "label":"Profile", 
+        "en": 1, 
+        "code":"--user/profile", 
+        "url":"--user/profile"
+    },
+    "-",
+    {
+        "icon":"",
+        "label":"Sign Out", 
+        "en": 1, 
+        "code":"--user/sign_out", 
+        "url":"--user/sign_out"
+    }
+]

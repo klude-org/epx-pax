@@ -69,8 +69,8 @@ class epx__250328_01_db__pax__klude_org__github implements \ArrayAccess {
                 try {
                     $this->pdo = new \PDO(
                         "mysql:host={$this->hostname};dbname={$this->database};charset={$this->char_set}", 
-                        $_ENV['DB_USERNAME'] ?? 'root',
-                        $_ENV['DB_PASSWORD'] ?? '',
+                        $_ENV[static::class]['USERNAME'] ?? $_ENV['DB_USERNAME'] ?? 'root',
+                        $_ENV[static::class]['PASSWORD'] ?? $_ENV['DB_PASSWORD'] ?? '',
                         [
                             \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
                             \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,

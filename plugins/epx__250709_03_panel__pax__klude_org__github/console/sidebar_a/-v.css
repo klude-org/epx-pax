@@ -1,0 +1,120 @@
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+ul.list-unstyled {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable both-edges;
+    /* scrollbar-color: #7f7f7f6e #00000000;
+    scrollbar-width: thin; */
+    overflow: hidden;
+    overflow-anchor: none;
+    touch-action: none;
+}
+
+ul.list-unstyled:hover {
+    overflow: auto;
+}
+
+
+/*###################################################################################################################################################*/
+/*W3 Fixes*/
+/*###################################################################################################################################################*/
+
+
+.w3-bar {
+    width: 100%;
+    overflow: hidden
+}
+
+.w3-center .w3-bar {
+    display: inline-block;
+    width: auto
+}
+
+.w3-bar .w3-bar-item {
+    padding: 8px 16px;
+    float: left;
+    width: auto;
+    border: none;
+    display: block;
+    outline: 0
+}
+
+.w3-bar .w3-dropdown-hover,
+.w3-bar .w3-dropdown-click {
+    position: static;
+    float: left
+}
+
+.w3-bar .w3-button {
+    white-space: normal
+}
+
+.w3-bar-block .w3-bar-item {
+    width: 100%;
+    display: block;
+    padding: 8px 16px;
+    text-align: left;
+    border: none;
+    white-space: normal;
+    float: none;
+    outline: 0
+}
+
+.w3-bar-block.w3-center .w3-bar-item {
+    text-align: center
+}
+
+.w3-block {
+    display: block;
+    width: 100%
+}
+
+.w3-responsive {
+    display: block;
+    overflow-x: auto
+}
+
+.xui-dropdown-hover {
+    float: right;
+    width: 44px
+}
+
+.xui-dropdown-hover:hover+.w3-dropdown-content {
+    display: block
+}
+
+.xui-dropdown-hover+.w3-dropdown-content {
+    width: 100%;
+}
+
+.xui-dropdown-hover+.w3-dropdown-content:hover {
+    display: block
+}
+
+.xui-dropdown-hover+.w3-dropdown-content:hover {
+    display: block
+}
+
+.w3-bar-block .w3-bar-item.xui-parent-node {
+    width: calc(100% - 44px);
+    display: inline-block;
+}
+
+/* Scroll Shadows */
+.scrollable-shadow-on-sticky-top.scroll-top-active .sticky-top {
+    box-shadow: 0px 7px 7px 0px #aaaaaa77;
+}
+
+

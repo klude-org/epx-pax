@@ -1,0 +1,493 @@
+{
+    "header": {
+        "icon": "<i class=\"bi bi-grid-fill\"></i>",
+        "label": "Menu",
+        "tooltip": ""
+    },
+    "nav": [
+        {
+            "icon":"<i class=\"bi-house\"></i>",
+            "label":"Home", 
+            "en": 1, 
+            "code":"home", 
+            "url":"home"
+        },
+        {
+            "icon":"<i class=\"bi-speedometer2\"></i>",
+            "label":"Dashboard", 
+            "en": 1, 
+            "code":"noticeboard1", 
+            "url":"noticeboard1"
+        },
+        {
+            "icon":"<i class=\"bi-people\"></i>",
+            "label":"Staff", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Notice Board", 
+            "en": 1, 
+            "code":"noticeboard", 
+            "url":"noticeboard"
+        },
+        {
+            "icon":"&#128455;",
+            "label":"Employee", 
+            "en": 1, 
+            "code":"employee", 
+            "url":"employee",
+            "inner":[
+                {
+                    "icon":"&#128455;",
+                    "label":"User", 
+                    "en": 1, 
+                    "code":"employee/user", 
+                    "url":"employee/user"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Profile", 
+                    "en": 1, 
+                    "code":"employee/profile", 
+                    "url":"employee/profile"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Documents", 
+                    "en": 1, 
+                    "code":"employee/documents", 
+                    "url":"employee/documents"
+                },
+                {
+                    "icon":"&#128455;",
+                    "label":"Payslips", 
+                    "en": 1, 
+                    "code":"employee/payslips", 
+                    "url":"employee/payslips"
+                }
+            ]
+        }
+
+    ],
+    "footer": {
+        "icon": "https://github.com/mdo.png",
+        "label": "brian.pinto@cybernetworks.com.au",
+        "tooltip": "",
+        "nav": [
+            {
+                "icon":"",
+                "label":"New Project ...", 
+                "en": 1, 
+                "code":"--user/new_project", 
+                "url":"--user/new_project"
+            },
+            {
+                "icon":"",
+                "label":"Settings", 
+                "en": 1, 
+                "code":"--user/settings", 
+                "url":"--user/settings"
+            },
+            {
+                "icon":"",
+                "label":"Profile", 
+                "en": 1, 
+                "code":"--user/profile", 
+                "url":"--user/profile"
+            },
+            "-",
+            {
+                "icon":"",
+                "label":"Sign Out", 
+                "en": 1, 
+                "code":".?--logout", 
+                "url":".?--logout"
+            }
+        ]
+    }
+}
