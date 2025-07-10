@@ -1,6 +1,6 @@
-<?php namespace epx__250708_02_customer__pax__klude_org__github\nodes ;
+<?php namespace epx__250708_02_customer__pax__klude_org__github ;
 
-class model extends \_\env\com\db_model\nodes\model {
+class model extends \_\env\com\db_model\model {
     
     protected function i__struct(){
         return [

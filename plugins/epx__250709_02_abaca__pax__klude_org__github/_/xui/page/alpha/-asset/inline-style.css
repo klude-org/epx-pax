@@ -1,0 +1,584 @@
+
+.xui-pointer {
+    cursor:pointer;
+}
+
+.xui-sidenav .xui-nav-indicator.active {
+    color: #fff !important;
+    background-color: #1d3c6b !important;
+}
+
+.xui-sidenav .xui-nav-indicator.active-parent {
+    color: #fff !important;
+    background-color: #2b4872 !important;
+}
+
+.xui-sidenav-wrapper {
+    direction: rtl;
+    overflow-y: scroll;
+}
+
+.xui-sidenav-wrapper:hover {
+    /* overflow-y: scroll; */
+}
+
+.xui-sidenav-wrapper .xui-sidenav {
+    direction: ltr;
+}
+
+.xui-sidenav-wrapper::-webkit-scrollbar {
+    width: 5px;
+    opacity: 0;
+}
+
+.xui-sidenav-wrapper::-webkit-scrollbar-button {
+    display: none;
+}
+
+.xui-sidenav-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background: rgba(225, 225, 225, .4);
+}
+
+.xui-sidenav-wrapper::-webkit-scrollbar-track {
+    border-radius: 50px;
+}
+
+.xui-sidenav-wrapper::-webkit-scrollbar {
+    /* display: none; */
+    opacity: 0;
+}
+
+.xui-sidenav-wrapper:hover::-webkit-scrollbar {
+    /* display: block; */
+    opacity: 1;
+}
+
+.noscroll {
+    overflow: hidden;
+}
+
+/* This puts the scrolling action on the body, not the html - used for solving overlay scrolling issues - Brian Pinto*/
+/* unfortunately this takes away the inherent auto scroll on refresh - useful if you have a long editor */
+/* html { overflow:hidden; } */
+/* body { overflow:auto; height: 100vh; width:100vw; } */
+
+/* Not sure how this helps ?? I have forgotten why i put this - Brian Pinto*/
+/* body { scroll-padding-top: 100px; } */
+
+
+:root {
+    --xui-page-header-height: 60px;
+}
+
+.xui-page-header {
+    width: 100%;
+    height: var(--xui-page-header-height);
+    padding: 10px;
+    background: #eeeeee;
+}
+
+.xui-page-header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+}
+
+.xui-cursor-pointer {
+    cursor: pointer;
+}
+
+img.thumbnail {
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    border: 0;
+    object-fit: contain;
+}
+
+input[type="number"],
+input.is-number {
+    text-align: right;
+}
+
+.h100p-w100p {
+    height: 100%;
+    width: 100%;
+}
+
+@media print {
+    .no-print {
+        display: none
+    }
+
+    .page-break {
+        break-before: always;
+    }
+}
+
+.xui-feature:not(.xui-feature-exists) .xui-feature-if-exists {
+    display: none !important;
+}
+
+form.is-changed .x-form-save-button {
+    background-color: var(--bs-danger);
+    color: var(--bs-white);
+    ;
+    border-color: var(--bs-danger);
+}
+
+.xui-cursor-pointer {
+    cursor: pointer;
+}
+
+.xui-hidden {
+    display: none;
+}
+
+
+/*###################################################################################################################################################*/
+/*xui-sortable-pool*/
+/*###################################################################################################################################################*/
+
+.xui-sortable-pool .panel-heading {
+    cursor: move;
+}
+
+
+/*###################################################################################################################################################*/
+/*select2*/
+/*###################################################################################################################################################*/
+
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container .select2-selection {
+    padding: 2px;
+    height: 36px;
+}
+
+.select2-container .select2-selection__arrow {
+    height: 36px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    appearance: none;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+
+
+/*###################################################################################################################################################*/
+/*Generic*/
+/*###################################################################################################################################################*/
+
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+
+.b-example-vr {
+    flex-shrink: 0;
+    width: 0.2rem;
+    height: 100vh;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.btn-bd-primary {
+    --bd-violet-bg: #712cf9;
+    --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bd-violet-bg);
+    --bs-btn-border-color: var(--bd-violet-bg);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #6528e0;
+    --bs-btn-hover-border-color: #6528e0;
+    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #5a23c8;
+    --bs-btn-active-border-color: #5a23c8;
+}
+
+.bd-mode-toggle {
+    z-index: 1500;
+}
+
+.bd-mode-toggle .dropdown-menu .active .bi {
+    display: block !important;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+ul.list-unstyled {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable both-edges;
+    /* scrollbar-color: #7f7f7f6e #00000000; */
+    /* scrollbar-width: thin; */
+    overflow: hidden;
+    overflow-anchor: none;
+    touch-action: none;
+}
+
+ul.list-unstyled:hover {
+    overflow: auto;
+}
+
+
+/*###################################################################################################################################################*/
+/*W3 Fixes*/
+/*###################################################################################################################################################*/
+
+
+.w3-bar {
+    width: 100%;
+    overflow: hidden
+}
+
+.w3-center .w3-bar {
+    display: inline-block;
+    width: auto
+}
+
+.w3-bar .w3-bar-item {
+    padding: 8px 16px;
+    float: left;
+    width: auto;
+    border: none;
+    display: block;
+    outline: 0
+}
+
+.w3-bar .w3-dropdown-hover,
+.w3-bar .w3-dropdown-click {
+    position: static;
+    float: left
+}
+
+.w3-bar .w3-button {
+    white-space: normal
+}
+
+.w3-bar-block .w3-bar-item {
+    width: 100%;
+    display: block;
+    padding: 8px 16px;
+    text-align: left;
+    border: none;
+    white-space: normal;
+    float: none;
+    outline: 0
+}
+
+.w3-bar-block.w3-center .w3-bar-item {
+    text-align: center
+}
+
+.w3-block {
+    display: block;
+    width: 100%
+}
+
+.w3-responsive {
+    display: block;
+    overflow-x: auto
+}
+
+.xui-dropdown-hover {
+    float: right;
+    width: 44px
+}
+
+.xui-dropdown-hover:hover+.w3-dropdown-content {
+    display: block
+}
+
+.xui-dropdown-hover+.w3-dropdown-content {
+    width: 100%;
+}
+
+.xui-dropdown-hover+.w3-dropdown-content:hover {
+    display: block
+}
+
+.xui-dropdown-hover+.w3-dropdown-content:hover {
+    display: block
+}
+
+.w3-bar-block .w3-bar-item.xui-parent-node {
+    width: calc(100% - 44px);
+    display: inline-block;
+}
+
+/* Scroll Shadows */
+.scrollable-shadow-on-sticky-top.scroll-top-active .sticky-top {
+    box-shadow: 0px 7px 7px 0px #aaaaaa77;
+}
+
+
+/*###################################################################################################################################################*/
+/*XUI Sortable*/
+/*###################################################################################################################################################*/
+
+
+.xui-sortable-handle {
+    cursor: grab;
+}
+
+
+/*###################################################################################################################################################*/
+/*XUI Loading*/
+/*###################################################################################################################################################*/
+.xui-loading-indicator {
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #77777745;
+}
+
+.xui-loading-indicator .x-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    padding: 20px 50px;
+    border: 1px solid #ec4d4d;
+    border-radius: 5px;
+    background-color: #ec4d4d;
+    color: white;
+    pointer-events: none;
+}
+
+/*###################################################################################################################################################*/
+/*XUI Drawer*/
+/*###################################################################################################################################################*/
+
+.xui-drawer {
+    background: #edeff1ef;
+    color: #333;
+    position: fixed;
+    top: 0;
+    right: -100vw;
+    width: 100vw;
+    height: 0vh;
+    max-height: 0vh;
+    z-index: 100000;
+}
+
+.xui-drawer.enable {
+    height: 100vh;
+    max-height: 100vh;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.xui-drawer.on {
+    /* transform: translate(-100%); */
+    right: 0;
+}
+
+.xui-sortable-body.x-if-changed.is-changed .x-indicate-changed {
+    background-color: rgb(32, 69, 6) !important;
+}
+
+
+/*###################################################################################################################################################*/
+/*XUI Picture Tile A*/
+/*###################################################################################################################################################*/
+
+.xui-picture-tile-a {
+        
+}
+
+.xui-picture-tile-a.x-fixed-wh {
+    width: 200px;
+}
+
+.xui-picture-tile-a .xui-image-edit-field input {
+    display: none;
+}
+
+.xui-picture-tile-a .xui-image-edit-field {
+    position: relative;
+    min-width: 200px;
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-action {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+    opacity: 50%;
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-action:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+    opacity: 90%;
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-action:after {
+    color: #757575;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-action-change:after {
+    content: "\f040";
+    font-family: 'FontAwesome';
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-action-change {
+    right: 5px;
+    top: 5px;
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-action-remove:after {
+    content: "\f00d";
+    font-family: 'FontAwesome';
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-action-remove {
+    right: 5px;
+    top: 45px;
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-field-preview-img {
+    width: 100%;
+    height: 130px;
+    border: 1px solid #aaa;
+    object-fit: contain;
+}                   
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-field-preview-img {
+    transition: all 0.2s ease-in-out;
+}
+
+.xui-picture-tile-a .xui-image-edit-field .xui-image-edit-field-preview-img:has(+ .x-image-zoom:hover) {
+    transform: scale(1.5);
+    z-index: 9999999;
+}
+
+.xui-picture-tile-a .xui-image-edit-field .x-image-zoom:after {
+    content: "\f00e";
+    font-family: 'FontAwesome';
+}
+
+.xui-picture-tile-a .xui-image-edit-field .x-image-zoom {
+    right: 5px;
+    top: 85px;
+}
+
+/*###################################################################################################################################################*/
+/* x-view-lightbox */
+/*###################################################################################################################################################*/
+.xui-picture-tile-a .xui-image-edit-field.is-dragover .xui-image-edit-field-preview-img {
+    border: 1px solid red !important;
+}
+
+/*###################################################################################################################################################*/
+/* x-view-lightbox */
+/*###################################################################################################################################################*/
+.xui-picture-tile-a .xui-image-edit-field .x-view-lightbox-close {
+    display:none;
+}
+
+.xui-picture-tile-a .xui-image-edit-field.x-view-lightbox .x-view-lightbox-close {
+    position:fixed !important;
+    top:5px !important;
+    right:4px !important;
+    display:block !important;
+    z-index: 99999999 !important;
+}
+
+.xui-picture-tile-a .xui-image-edit-field.x-view-lightbox .xui-image-edit-field-preview-img {
+    border-radius: 0 !important;
+    position:fixed !important;
+    top:0 !important;
+    left:0 !important;
+    padding:20px !important;
+    height:100vh !important;
+    width:100vw !important;
+    z-index: 99999998 !important;
+    transform: scale(1.0) !important;
+    object-fit: contain !important;
+    border:none !important;
+    background-color: black !important;
+}

@@ -11,7 +11,7 @@ trait context_item_node__t {
         $this->INDEX = $index;
     }
     private static function si__subpath(){
-        static::$I__SUB_PATH = \str_replace('\\','/', \_\PANEL.\strrchr(static::class,'\\')."/");
+        static::$I__SUB_PATH = \str_replace('\\','/', \_\REQ['panel'].\strrchr(static::class,'\\')."/");
     }
 
 }

@@ -19,8 +19,8 @@ class alpha extends \stdClass implements \ArrayAccess, \JsonSerializable {
     public function offsetUnset($n):void { 
         unset($this->A§[$n]);
     }
-    public function offsetGet($n):mixed { 
-        return $this->A§[$n] ?? null;
+    public function &offsetGet($n):mixed { 
+        return $this->A§[$n];
     }
 
     public function __set($n, $v){

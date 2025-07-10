@@ -189,7 +189,7 @@ abstract class env extends \stdClass implements \ArrayAccess, \JsonSerializable 
         if($__CTLR_FILE__ instanceof \SplFileInfo){
             $__ENV__ = $this;
             $this->i__init();
-            $this->ctlr_url = $this->base_url.$rpath;
+            \define('_\CTLR_URL', $this->ctlr_url = $this->base_url.$rpath);
             $this->panel = \class_exists(\_\REQ['panel'])
                 ? $panel::_()
                 : (static::class."\\panel")::_()

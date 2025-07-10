@@ -28,6 +28,7 @@ class web extends \_\env {
             , 
             '/.'
         );
+        $this->request;
     }
     
 }

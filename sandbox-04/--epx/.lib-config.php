@@ -5,7 +5,7 @@
 
 1 AND $_[\_\db::class]['#'] = \epx__250328_01_db__pax__klude_org__github::class;
 0 AND $_[\_\db::class]['HOSTNAME'] = 'localhost';
-1 AND $_[\_\db::class]['DATABASE'] = 'erp';
+1 AND $_[\_\db::class]['DATABASE'] = '240918-invoicing.site';
 0 AND $_[\_\db::class]['USERNAME'] = 'root';
 0 AND $_[\_\db::class]['PASSWORD'] = '';
 

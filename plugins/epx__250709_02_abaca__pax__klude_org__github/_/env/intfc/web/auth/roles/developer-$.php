@@ -1,6 +1,6 @@
 <?php return [
     'name' => 'Developer',
-    'portals' => ['--portal-02'],
+    'portals' => ['*'],
     'permits' => [
         '*' => true,
     ]

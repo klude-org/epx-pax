@@ -3,6 +3,7 @@
 class auth extends \stdClass implements \ArrayAccess, \JsonSerializable {
     
     use \_\i\singleton__t;
+    use \_\i\my\data__t;
     
     public function __construct(){
         
@@ -39,11 +40,11 @@ class auth extends \stdClass implements \ArrayAccess, \JsonSerializable {
                 exit();
             };
         };
-            
+        
         if(!$this->needs_authentication()){
             $this->role = \_\REQ['role'] ?? null ?: $this['default_role'];
             $this->portal = \_\REQ['portal'] ?? null ?: '';
-            $this->role_data = $this->get_data("roles/{$this->role}");
+            $this->role_data = $this->my_data("roles/{$this->role}");
             $this->portals = $this->role_data['portals'] ?? [];
         }
     }
@@ -70,21 +71,6 @@ class auth extends \stdClass implements \ArrayAccess, \JsonSerializable {
     
     public function needs_permission(){
         return \_\REQ['portal'] && (!$this['login_in_progress']) && $this['en'];
-    }
-    
-    
-    public function get_data_file($path){
-        return \_::file($f[] = \_\DATA_DIR."/".static::class."/{$path}", '-$.php')
-            ?: \_::file($f[] = static::class."/{$path}", '-$.php') 
-        ;
-    }
-    
-    public function get_data($path){
-        if($f = $this->get_data_file($path)){
-            return include $f ?: [];
-        } else {
-            return [];
-        }
     }
     
     public function get_view_file($path){
@@ -306,7 +292,7 @@ class auth extends \stdClass implements \ArrayAccess, \JsonSerializable {
             }
         } else {
             foreach($roles as $k){
-                if($role_data = $this->get_data("roles/{$k}")){
+                if($role_data = $this->my_data("roles/{$k}")){
                     if($name = $role_data['name'] ?? false){
                         $select_options[$k] = [
                             'value' => $k, 

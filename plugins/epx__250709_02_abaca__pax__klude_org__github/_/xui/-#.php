@@ -5,7 +5,12 @@ class xui {
     use \_\i\singleton__t;
     use \_\i\extensible\c\getter__t;
     
+    public $vars;
     private $I__PLICS = [];
+    
+    public function __construct(){
+        $this->vars = \_\i\flex\alpha::_();
+    }
     
     public function view(string|callable|\SplFileInfo $path = ''){
         return \_\xui\view::_($path)->context(\is_callable($path) ? null : $this);
