@@ -532,7 +532,7 @@ final class epx__250709_01_start__pax__klude_org__github {
         #endregion
         #region CONFIG
         global $_;
-        global $CFG_MODE; //empty is 'lock', 1 is 'auto', 2 is force, 3 is 'force and test';
+        $CFG_MODE = (\_\START_EN['cfg_mode'] ?? 1); //empty is 'lock', 1 is 'auto', 2 is force, 3 is 'force and test';
         (isset($_) && \is_array($_)) OR $_ = [];
         (isset($GLOBALS['_TRACE']) && \is_array($GLOBALS['_TRACE'])) OR $GLOBALS['_TRACE'] = [];
         $intfc = \_\INTFC;
@@ -717,6 +717,30 @@ final class epx__250709_01_start__pax__klude_org__github {
             $_,
         ); 
         $_ =& $_ENV;
+        //* Default is 'Australia/Adelaide' because thats where epx-php was invented.
+        1 AND !\is_null($v = $_ENV['PHP']['timezone'] ?? 'Australia/Adelaide') AND \date_default_timezone_set($v);
+        1 AND !\is_null($v = $_ENV['PHP']['timelimit'] ?? null) AND \set_time_limit($v);
+        1 AND !\is_null($v = $_ENV['PHP']['display_errors'] ?? null) AND \ini_set('display_errors', $v);
+        1 AND !\is_null($v = $_ENV['PHP']['display_startup_errors'] ?? null) AND \ini_set('display_startup_errors', $v);
+        1 AND !\is_null($v = $_ENV['PHP']['error_reporting'] ?? null) AND \ini_set('error_reporting', $v);
+        0 AND \error_reporting(E_ALL);
+        1 AND \defined('_\DBG') OR \define('_\DBG', (int) (
+            ($_ENV['DBG']['REQUEST_TRIGGER_EN'] ?? null) ? $_REQUEST['--debug'] : null)
+            ?? ($_ENV['DBG']['EN'] ?? null)
+            ?? 0
+        );
+        1 AND \defined('_\DBG_') OR \define('_\DBG_',[
+            0 => \_\DBG >= 0,
+            1 => \_\DBG >= 1,
+            2 => \_\DBG >= 2,
+            3 => \_\DBG >= 3,
+            4 => \_\DBG >= 4,
+            5 => \_\DBG >= 5,
+            6 => \_\DBG >= 6,
+            7 => \_\DBG >= 7,
+            8 => \_\DBG >= 8,
+            9 => \_\DBG >= 9,
+        ]);
         1 AND \set_include_path($_['TSP']['PATH']);
         0 AND \spl_autoload_extensions($_['TSP']['EXTENSIONS'] ?? null ?: '-#.php,/-#.php');
         0 AND \spl_autoload_register();
