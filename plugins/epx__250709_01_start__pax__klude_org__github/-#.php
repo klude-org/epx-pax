@@ -482,9 +482,9 @@ final class epx__250709_01_start__pax__klude_org__github {
                                     $oy = &$oy[$kk];
                                 }
                                 $oy =  new class($v) extends \SplFileInfo implements \JsonSerializable {
-                                    private array $details;
+                                    public readonly array $info;
                                     public function __construct($v){
-                                        $this->details = $v; 
+                                        $this->info = $v; 
                                         parent::__construct($v['tmp_name']);
                                     }
                                     public function info($n){
@@ -519,7 +519,7 @@ final class epx__250709_01_start__pax__klude_org__github {
                     } break;
                 }
                 
-                $_FILES = $files;
+                // $_FILES = $files;
                 //! warning: array_merge_recursive messes up if $_FILES and $_POST have same key
                 return \array_replace_recursive(
                     $_POST, 

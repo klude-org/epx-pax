@@ -107,20 +107,13 @@
                 "code":"--user/settings", 
                 "url":"--user/settings"
             },
+            "-",
             {
                 "icon":"",
                 "label":"Profile", 
                 "en": 1, 
                 "code":"--user/profile", 
                 "url":"--user/profile"
-            },
-            "-",
-            {
-                "icon":"",
-                "label":"Sign Out", 
-                "en": 1, 
-                "code":".?--logout", 
-                "url":".?--logout"
             }
         ]
     }

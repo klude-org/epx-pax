@@ -1,13 +1,3 @@
-<?php 
-    $o = (object)[];
-    $o->sidebar = (function(){ 
-        if(\is_file($file = \_\path_here('sidebar-$.json'))){
-            return \json_decode(\file_get_contents($file));
-        } else {
-            return $this->sidebar_menu();
-        }
-    })();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -191,9 +181,9 @@
     <div class="xui-container">
         <div class="xui-sidebar p-1" id="leftSidebar">
             <div class="d-flex justify-content-between align-items-center mb-1">
-                <a href="/" class="xui-nav-header d-flex align-items-center mb-md-0 me-md-auto text-decoration-none">
-                    <span class="icon"><?=$o->sidebar->header->icon??''?></span> 
-                    <span class="ms-1 fs-5 d-none d-sm-inline"><?=$o->sidebar->header->label??''?></span>
+                <a href="<?=o()->env->site_url?>" class="xui-nav-header d-flex align-items-center mb-md-0 me-md-auto text-decoration-none">
+                    <span class="icon"><?=$this->sidebar()->header->icon ?? '<i class=\"bi bi-grid-fill\"></i>'?></span> 
+                    <span class="ms-1 fs-5 d-none d-sm-inline"><?=$this->sidebar()->header->label ?? 'Untitled'?></span>
                 </a>
             </div>
             <?php 
@@ -203,7 +193,7 @@
                     <?php else: ?>
                     <ul class="show nav flex-column ms-2">
                     <?php endif ?>
-                    <?php foreach($nav as $k => $v): ?>
+                    <?php foreach($nav ?? [] as $k => $v): ?>
                         <?php if(\is_scalar($v)): ?>
                             <li><span class="section-label"><?=$v?></span></li>
                         <?php elseif(isset($v->inner)): ?>
@@ -235,18 +225,18 @@
                         <?php endif ?>
                     <?php endforeach ?>
                     </ul><?php 
-                })($o->sidebar->nav);
+                })($this->sidebar()->nav ?? null);
                 
-                ($footer_rended__fn = function ($footer) use(&$footer_rended__fn){ if(!$footer){ return; }?>
+                ($footer_rended__fn = function ($footer) use(&$footer_rended__fn){ ?>
                     <div class="dropdown dropup pt-2">
                         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="<?=$footer->icon?>" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                            <span class="flex-fill d-none d-sm-inline mx-1" style="max-width:110px; overflow:hidden"><?=$footer->label?></span>
+                            <img src="<?=$footer->icon ?? 'https://github.com/mdo.png' ?>" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                            <span class="flex-fill d-none d-sm-inline mx-1" style="max-width:120px; overflow:hidden"><?=$footer->label ?? 'User' ?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                             <li><a class="dropdown-item" href="<?='?--auth=facet'?>">Switch Portal</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <?php foreach($footer->nav as $k => $v): ?>
+                            <?php foreach($footer->nav ?? [] as $k => $v): ?>
                                 <?php if($v == '-'): ?>
                                     <li><hr class="dropdown-divider"></li>
                                 <?php elseif(\is_scalar($v)): ?>
@@ -256,9 +246,10 @@
                                 <?php else: ?>
                                 <?php endif ?>
                             <?php endforeach ?>
+                            <li><a class="dropdown-item" href="<?='.?--logout'?>">Sign Out</a></li>
                         </ul>
                     </div>
-                <?php })($o->sidebar->footer ?? null);
+                <?php })($this->sidebar()->footer ?? null);
             ?>
         </div>
         <div class="xui-main">

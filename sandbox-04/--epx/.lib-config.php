@@ -3,6 +3,8 @@
 1 AND $_["MODULES"][\epx__250709_02_abaca__pax__klude_org__github::class] = true;
 1 AND $_["MODULES"]['sandbox'] = true;
 
+1 AND $_['DB_DATABASE'] = '240918-invoicing.site';
+
 1 AND $_[\_\db::class]['#'] = \epx__250328_01_db__pax__klude_org__github::class;
 0 AND $_[\_\db::class]['HOSTNAME'] = 'localhost';
 1 AND $_[\_\db::class]['DATABASE'] = '240918-invoicing.site';
