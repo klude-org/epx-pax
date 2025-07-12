@@ -43,10 +43,11 @@ if not exist %~dp0%FW__SHELL_PLUGIN% mkdir %~dp0%FW__SHELL_PLUGIN%
 curl --globoff -o %~dp0%FW__SHELL_PLUGIN%\.start.bat https://raw.githubusercontent.com/klude-org/epx-pax/main/plugins/%FW__SHELL_PLUGIN%/.start.bat
 if not exist %~dp0%FW__SHELL_PLUGIN%\.start.bat goto :abort    
 :launch
-call %~dp0%FW__SHELL_PLUGIN%\.start.bat
+call %~dp0%FW__SHELL_PLUGIN%\.start.bat %*
 if %errorlevel%==0 goto :exit_b
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
+goto :exit_b
 :abort
 echo [91m!!! INVALID SHELL[0m
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
