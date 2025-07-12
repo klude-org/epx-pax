@@ -233,7 +233,10 @@ final class epx__250709_01_start__pax__klude_org__github {
         #endregion
         #region BOOTSTRAP 
         \define('_\INCP_DIR', \str_replace('\\','/',\realpath(\dirname($_SERVER['SCRIPT_FILENAME']))));
-        \define('_\SITE_DIR', \_\INCP_DIR);
+        \define('_\SITE_DIR', empty($_SERVER['HTTP_HOST'])
+            ? \str_replace('\\','/',\realpath($_SERVER['FX__SITE_DIR'] ?? \getcwd()))
+            : \str_replace('\\','/',\realpath(\dirname($_SERVER['SCRIPT_FILENAME'])))
+        );
         \define('_\LOCAL_DIR', \_\INCP_DIR.'/.local');
         \define('_\DATA_DIR', \_\LOCAL_DIR.'/data');
         

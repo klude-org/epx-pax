@@ -116,7 +116,7 @@ abstract class env extends \stdClass implements \ArrayAccess, \JsonSerializable 
     }
     
     public function route(){
-        if($dispatch = $this->auth->route()){
+        if($this->auth && $dispatch = $this->auth->route()){
             return $dispatch;
         }
         $panel = \_\REQ['panel'];

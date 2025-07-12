@@ -1,0 +1,1 @@
+@%~dp0index.bat /--browser/launch chrome /--setup
