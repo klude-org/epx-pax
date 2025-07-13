@@ -36,7 +36,7 @@
 :: # i'd like to be a tree - pilu (._.) // please keep this line in all versions - BP
 @echo off
 :: Set variables
-if "%FW__SHELL_PLUGIN%"=="" SET FW__SHELL_PLUGIN=epx__i_250712_01_std_shell__pax__klude_org__github
+if "%FW__SHELL_PLUGIN%"=="" SET FW__SHELL_PLUGIN=epx__250712_01_std_boot_i__pax__klude_org__github
 if exist %~dp0%FW__SHELL_PLUGIN%\.start.bat goto :launch
 if exist %~dp0.local-plugins\%FW__SHELL_PLUGIN%\.start.bat goto :launch
 if not exist %~dp0%FW__SHELL_PLUGIN% mkdir %~dp0%FW__SHELL_PLUGIN%

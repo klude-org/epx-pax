@@ -36,7 +36,7 @@
 :: # i'd like to be a tree - pilu (._.) // please keep this line in all versions - BP
 @echo off
 :: Set variables
-if "%FW__SHELL_PLUGIN%"=="" SET FW__SHELL_PLUGIN=epx__i_250712_01_std_shell__pax__klude_org__github
+if "%FW__SHELL_PLUGIN%"=="" SET FW__SHELL_PLUGIN=epx__250712_01_std_boot_i__pax__klude_org__github
 if exist %~dp0%FW__SHELL_PLUGIN%\.start.bat goto :launch
 if exist %~dp0.local-plugins\%FW__SHELL_PLUGIN%\.start.bat goto :launch
 C:/xampp/current/php__xdbg/php.exe "%~f0" %*;
@@ -81,7 +81,7 @@ try {
     \extract($mx = \array_filter($m, fn($k) => !is_numeric($k), \ARRAY_FILTER_USE_KEY)); 
     $w_owner = \str_replace('_','-',$w_owner);
     $w_repo = "epx-".\str_replace('_','-',$w_repo);
-    if(\str_starts_with($w_partno, 'i_')){
+    if(\str_ends_with($w_partno, '_i')){
         $start_filename = $w_sub ?? null ?: "/.start.bat";
         $start_plugin_stub = "{$start_plugin_name}{$start_filename}";
         $localfile = "{$plugin_dirpath}/{$start_plugin_stub}";
