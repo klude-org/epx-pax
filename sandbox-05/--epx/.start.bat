@@ -34,23 +34,30 @@
 :: #endregion
 :: # ###################################################################################################################
 :: # i'd like to be a tree - pilu (._.) // please keep this line in all versions - BP
-@echo off
+::@echo off
 :: Set variables
-if "%FW__SHELL_PLUGIN%"=="" SET FW__SHELL_PLUGIN=epx__250712_01_std_boot_i__pax__klude_org__github
-if exist %~dp0%FW__SHELL_PLUGIN%\.start.bat goto :launch
-if exist %~dp0.local-plugins\%FW__SHELL_PLUGIN%\.start.bat goto :launch
-if not exist %~dp0%FW__SHELL_PLUGIN% mkdir %~dp0%FW__SHELL_PLUGIN%
-curl --globoff -o %~dp0%FW__SHELL_PLUGIN%\.start.bat https://raw.githubusercontent.com/klude-org/epx-pax/main/plugins/%FW__SHELL_PLUGIN%/.start.bat
-if not exist %~dp0%FW__SHELL_PLUGIN%\.start.bat goto :abort    
+if "%FW__BOOT_PLUGIN%"=="" SET FW__BOOT_PLUGIN=epx__250712_01_std_boot_i__pax__klude_org__github
+if exist %~dp0%FW__BOOT_PLUGIN%\.boot.bat goto :launch
+if exist %~dp0.local-plugins\%FW__BOOT_PLUGIN%\.boot.bat goto :launch_2
+if not exist %~dp0%FW__BOOT_PLUGIN% mkdir %~dp0%FW__BOOT_PLUGIN%
+curl --globoff -o %~dp0%FW__BOOT_PLUGIN%\.boot.bat https://raw.githubusercontent.com/klude-org/epx-pax/main/plugins/%FW__BOOT_PLUGIN%/.boot.bat
+if not exist %~dp0%FW__BOOT_PLUGIN%\.boot.bat goto :abort    
 :launch
-call %~dp0%FW__SHELL_PLUGIN%\.start.bat %*
-if %errorlevel%==0 goto :exit_b
+call %~dp0%FW__BOOT_PLUGIN%\.boot.bat %*
+if %errorlevel%==0 goto :exit_ok
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
-goto :exit_b
+goto :exit_ok
+:launch_2
+call %~dp0.local-plugins\%FW__BOOT_PLUGIN%\.boot.bat %*
+if %errorlevel%==0 goto :exit_ok
+echo %cmdcmdline% | findstr /i /c:" /c" >nul
+if %errorlevel%==0 pause
+goto :exit_ok
 :abort
 echo [91m!!! INVALID SHELL[0m
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
-:exit_b
+exit /b 1
+:exit_ok
 exit /b 0

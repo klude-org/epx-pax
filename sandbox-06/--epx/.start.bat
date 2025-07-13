@@ -36,21 +36,30 @@
 :: # i'd like to be a tree - pilu (._.) // please keep this line in all versions - BP
 @echo off
 :: Set variables
-if "%FW__SHELL_PLUGIN%"=="" SET FW__SHELL_PLUGIN=epx__250712_01_std_boot_i__pax__klude_org__github
-if exist %~dp0%FW__SHELL_PLUGIN%\.start.bat goto :launch
-if exist %~dp0.local-plugins\%FW__SHELL_PLUGIN%\.start.bat goto :launch
+if "%FW__BOOT_PLUGIN%"=="" SET FW__BOOT_PLUGIN=epx__250712_01_std_boot_i__pax__klude_org__github
+if exist %~dp0%FW__BOOT_PLUGIN%\.boot.bat goto :launch
+if exist %~dp0.local-plugins\%FW__BOOT_PLUGIN%\.boot.bat goto :launch_2
+
 C:/xampp/current/php__xdbg/php.exe "%~f0" %*;
-if not exist %~dp0%FW__SHELL_PLUGIN%\.start.bat goto :abort    
+if not exist %~dp0%FW__BOOT_PLUGIN%\.boot.bat goto :abort    
 :launch
-call %~dp0%FW__SHELL_PLUGIN%\.start.bat
-if %errorlevel%==0 goto :exit_b
+call %~dp0%FW__BOOT_PLUGIN%\.boot.bat %*
+if %errorlevel%==0 goto :exit_ok
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
+goto :exit_ok
+:launch_2
+call %~dp0.local-plugins\%FW__BOOT_PLUGIN%\.boot.bat %*
+if %errorlevel%==0 goto :exit_ok
+echo %cmdcmdline% | findstr /i /c:" /c" >nul
+if %errorlevel%==0 pause
+goto :exit_ok
 :abort
 echo [91m!!! INVALID SHELL[0m
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
-:exit_b
+exit /b 1
+:exit_ok
 exit /b 0
 <?php endif;
 try {
@@ -65,47 +74,47 @@ try {
             default => null,
         };
     };
-    if(!($start_plugin_name = $_SERVER['FW__SHELL_PLUGIN' ] ?? null)){
+    if(!($boot_plugin_name = $_SERVER['FW__BOOT_PLUGIN' ] ?? null)){
         throw new \Exception("Shell plugin name is not specified");
     }
     if(!\preg_match(
         "#^(?<w_plugin>epx__(?<w_partno>.+)__(?<w_repo>.+)__(?<w_owner>.+)__(?<w_domain>[^/]+))(?<w_sub>/[^/]+)?#",
-        $p = \str_replace('\\','/', $start_plugin_name),
+        $p = \str_replace('\\','/', $boot_plugin_name),
         $m
     )){
         throw new \Exception("Shell plugin name format is invalid");
-    }
-    if(\is_dir($start_dirpath = "{$plugin_dirpath}/{$start_plugin_name}")){
-        throw new \Exception("Shell plugin folder '{$start_plugin_name}' already exist");
     }
     \extract($mx = \array_filter($m, fn($k) => !is_numeric($k), \ARRAY_FILTER_USE_KEY)); 
     $w_owner = \str_replace('_','-',$w_owner);
     $w_repo = "epx-".\str_replace('_','-',$w_repo);
     if(\str_ends_with($w_partno, '_i')){
-        $start_filename = $w_sub ?? null ?: "/.start.bat";
-        $start_plugin_stub = "{$start_plugin_name}{$start_filename}";
+        $start_filename = $w_sub ?? null ?: "/.boot.bat";
+        $start_plugin_stub = "{$boot_plugin_name}{$start_filename}";
         $localfile = "{$plugin_dirpath}/{$start_plugin_stub}";
         $u_path = \urlencode("{$start_plugin_stub}");
         if(!($url = $url__fn($w_owner, $w_repo, $w_domain, $u_path))){
-            throw new \Exception("Shell plugin error for '{$start_plugin_name}': Invalid domain");
+            throw new \Exception("Shell plugin error for '{$boot_plugin_name}': Invalid domain");
         }
         if(!($contents = \file_get_contents($url))){
-            throw new \Exception("Shell plugin error for '{$start_plugin_name}': Failed to download repo");
+            throw new \Exception("Shell plugin error for '{$boot_plugin_name}': Failed to download repo");
         }
         \is_dir($d = \dirname($localfile)) OR \mkdir($d, 0777, true);
         \file_put_contents($localfile, $contents);
     } else {
-        $u_path = \urlencode("{$start_plugin_name}.zip");
+        if(\is_dir($boot_dirpath = "{$plugin_dirpath}/{$boot_plugin_name}")){
+            throw new \Exception("Shell plugin folder '{$boot_plugin_name}' already exist");
+        }
+        $u_path = \urlencode("{$boot_plugin_name}.zip");
         if(!($url = $url__fn($w_owner, $w_repo, $w_domain, $u_path))){
-            throw new \Exception("Shell plugin error for '{$start_plugin_name}': Invalid domain");
+            throw new \Exception("Shell plugin error for '{$boot_plugin_name}': Invalid domain");
         }
         $l_zip= "{$plugin_dirpath}/.local-".uniqid().".zip";
         if(!($contents = \file_get_contents($url))){
-            throw new \Exception("Shell plugin error for '{$start_plugin_name}': Failed to download repo");
+            throw new \Exception("Shell plugin error for '{$boot_plugin_name}': Failed to download repo");
         }
         \file_put_contents($l_zip, $contents);
         if (!(($zip = new \ZipArchive)->open($l_zip) === true)) {
-            throw new \Exception("Shell plugin error for '{$start_plugin_name}': Failed to download repo");
+            throw new \Exception("Shell plugin error for '{$boot_plugin_name}': Failed to download repo");
         }
         $zip->extractTo($plugin_dirpath);
         unlink($l_zip);    

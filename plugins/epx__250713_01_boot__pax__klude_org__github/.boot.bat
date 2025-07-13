@@ -34,7 +34,24 @@
 :: #endregion
 :: # ###################################################################################################################
 :: # i'd like to be a tree - pilu (._.) // please keep this line in all versions - BP
-::@echo off
+@echo off
+
+:: %cmdcmdline% contains the command that launched the CMD session.
+:: When double-clicked from Explorer, Windows launches it like:
+:: cmd.exe /c "C:\Path\to\script.bat"
+:: But if you run from a prompt or call, %cmdcmdline% won't contain /c "fullpath".
+:: Check if script was run via double-click (explorer launches using 'cmd.exe /c "script.bat"')
+:: Detect double-click using a loose match - stupid batch parser causes exact match issues
+echo %cmdcmdline% | findstr /i /c:" /c" >nul
+:: !!! use rem inside () dont use :: because bat parser goes kaplowee
+if %errorlevel%==0 (
+    rem Detected: Double-click
+    rem start "" cmd.exe /k
+    cmd /k
+    exit /b 0
+) else (
+    rem Detected: Called from command prompt or another script
+)
 
 if "%FW__SITE_DIR%"=="" set "FW__SITE_DIR=%CD%"
 
@@ -56,40 +73,21 @@ if "%FX__DEBUG%"=="" set FW__PHP_EXE=%FX__PHP_EXEC_STD_PATH%
 :: echo %FX__PHP_EXEC_XDBG_PATH%
 :: echo %FW__PHP_EXE%
 :: pause
-if "%*"=="" goto :cmd_launcher
-    
-%FW__PHP_EXE% %FW__SITE_DIR%index.php %*
-if "%FW__PAUSE_ON_EXIT%" NEQ "" ( 
-    pause
-) else if %ERRORLEVEL%==2 (
-    pause
-) else if "%FW__ENV_FILE%"==""  (
-    if exist "%FW__ENV_FILE%" (
-        call "%FW__ENV_FILE%"
-        del "%FW__ENV_FILE%"
-    )
-)
-
-:cmd_launcher
-:: %cmdcmdline% contains the command that launched the CMD session.
-:: When double-clicked from Explorer, Windows launches it like:
-:: cmd.exe /c "C:\Path\to\script.bat"
-:: But if you run from a prompt or call, %cmdcmdline% won't contain /c "fullpath".
-:: Check if script was run via double-click (explorer launches using 'cmd.exe /c "script.bat"')
-:: Detect double-click using a loose match - stupid batch parser causes exact match issues
-echo %cmdcmdline% | findstr /i /c:" /c" >nul
-:: !!! use rem inside () dont use :: because bat parser goes kaplowee
-if %errorlevel%==0 (
-    rem Detected: Double-click
-    rem start "" cmd.exe /k
-    cmd /k
-    exit /b 0
+if "%*"=="" (
+    rem Launch UI
+    "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --incognito --app=http://%FW__ROOT_URL%  | start /min %FW__PHP_EXE% -S %FW__ROOT_URL% -t %FW__SITE_DIR%
+    rem start %FW__PHP_EXE% -S %FW__ROOT_URL% -t %FW__SITE_DIR%
 ) else (
-    rem Detected: Called from command prompt or another script
-    exit /b 0
+    %FW__PHP_EXE% %FW__SITE_DIR%index.php %*
+    if "%FW__PAUSE_ON_EXIT%" NEQ "" ( 
+        pause
+    ) else if %ERRORLEVEL%==2 (
+        pause
+    ) else if "%FW__ENV_FILE%"==""  (
+        if exist "%FW__ENV_FILE%" (
+            call "%FW__ENV_FILE%"
+            del "%FW__ENV_FILE%"
+        )
+    )    
 )
-
-
-
-
 <?php endif; 

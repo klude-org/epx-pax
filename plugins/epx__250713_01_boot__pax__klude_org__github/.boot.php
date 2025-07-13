@@ -73,15 +73,22 @@ $fault__fn = function($ex = null){
     $fault__fn($ex);
 });
 \set_error_handler(function($severity, $message, $file, $line) use($fault__fn){
-    throw new \ErrorException(
-        $message, 
-        0,
-        $severity, 
-        $file, 
-        $line
-    );
+    try{
+        throw new \ErrorException(
+            $message, 
+            0,
+            $severity, 
+            $file, 
+            $line
+        );
+    } catch(\Throwable $ex) {
+        if(!\defined('_\SIG_END')){
+            $fault__fn($ex);
+        } else {
+            throw $ex;
+        }
+    }
 });
-\define('_\DISABLE_ORIGIN_EXIT_HANDLER', true);
 \register_shutdown_function(function() use($fault__fn){
     if(\class_exists(\_\dx::class, false)){
         // do nothing - assuming if dx exists it will have handled this!
@@ -118,10 +125,7 @@ $fault__fn = function($ex = null){
 1 AND \set_include_path(
     (\is_dir($d = \_\ABACA_DIR) ? $d.PATH_SEPARATOR : '')
     .\_\START_DIR.PATH_SEPARATOR
-    .(\is_dir($d = \_\START_DIR.'/sandbox') ? $d.PATH_SEPARATOR : '')
-    .(\is_dir($d = \_\START_DIR.'/.local-plugins') ? $d.PATH_SEPARATOR : '')
-    .\get_include_path()
-);
+    .\get_include_path());
 1 AND \spl_autoload_extensions("-#.php,/-#.php");
 1 AND \spl_autoload_register();
 1 AND \spl_autoload_register($autoload_fn = function($n) use(&$autoload_fn) { 
@@ -532,7 +536,7 @@ $CFG_MODE = (\_\START_EN['cfg_mode'] ?? 1); //empty is 'lock', 1 is 'auto', 2 is
 $intfc = \_\INTFC;
 $cfg_cache_t = \is_file($cfg_cache_f = \_\LOCAL_DIR."/.config-cache-{$intfc}.php") ? \filemtime($cfg_cache_f) : 0;
 if($CFG_MODE || !$cfg_cache_t){
-    $my_class = \basename(__DIR__);
+    $my_class = static::class;
     if(!\file_exists($f = \_\START_DIR."/.lib-config.php")){
         \file_put_contents(
             $f, 
