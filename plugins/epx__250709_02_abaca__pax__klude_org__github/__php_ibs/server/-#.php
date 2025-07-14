@@ -1,4 +1,4 @@
-<?php namespace __php_cli;
+<?php namespace __php_ibs;
 
 class server extends \stdClass {
     

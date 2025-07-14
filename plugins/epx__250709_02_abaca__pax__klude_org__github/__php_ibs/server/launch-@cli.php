@@ -1,5 +1,5 @@
 <?php
-(new class extends \__php_cli\xdbg_server{
+(new class extends \__php_ibs\xdbg_server{
     public function __invoke(){
         if (!$this->isServerRunning()) {
             echo "Server is not running at {$this->url}\n";
