@@ -534,13 +534,9 @@ $cfg_cache_t = \is_file($cfg_cache_f = \_\LOCAL_DIR."/.config-cache-{$intfc}.php
 if($CFG_MODE || !$cfg_cache_t){
     $my_class = \basename(__DIR__);
     if(!\file_exists($f = \_\START_DIR."/.lib-config.php")){
-        \file_put_contents(
-            $f, 
-            \file_get_contents(
-                "https://raw.githubusercontent.com/klude-org/epx-pax/main/plugins/{$my_class}/.lib-config.php"
-            )
-        );
-        include $f;
+        if(\is_file($fsource = __DIR__."/.lib-config.php")){
+            \copy($fsource, $f);
+        }
     }
     $cfg_parts = [
         \_\START_DIR."/.lib-config.php" => 1,

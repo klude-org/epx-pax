@@ -37,11 +37,18 @@
 # i'd like to be a tree - pilu (._.) // please keep this line in all versions - BP
 # ######################################################################################################################
 #region START
-namespace _ { 
+namespace {(function(){
     \defined('_\MSTART') OR \define('_\MSTART', \microtime(true));
     \define('_\START_FILE', \str_replace('\\','/', __FILE__));
     \define('_\START_DIR', \dirname(\_\START_FILE));
     \define('_\START_OB', \ob_get_level());
+    \set_include_path(
+        \_\START_DIR.PHP_PATH_SEPARATOR
+        .(\is_dir($d = \dirname(\_\START_DIR,2).'/plugins') ? $d.PHP_PATH_SEPARATOR : '')
+        .\get_include_path()
+    );
+})();}
+namespace {(function(){
     1 AND \ini_set('display_errors', 0);
     1 AND \ini_set('display_startup_errors', 1);
     1 AND \ini_set('error_reporting', E_ALL);
@@ -140,7 +147,9 @@ namespace _ {
                 }
             });
         }
-    });    
+    });
+})();}
+namespace {$BOOT_FILEPATH = (function(){
     $_SERVER['FW__BOOT_PLUGIN'] ??= "epx__250712_01_std_boot_i__pax__klude_org__github";
     $plugin_dirpath= \str_replace('\\','/',__DIR__);        
     if(!($boot_plugin_name = $_SERVER['FW__BOOT_PLUGIN' ] ?? null)){
@@ -203,6 +212,11 @@ namespace _ {
     }
     if(!\is_file($boot_filepath)){
         throw new \Exception("Shell plugin error for '{$boot_plugin_name}': Failed to locate start file");
-    }
-    return include $boot_filepath;
+    } else {
+        return $boot_filepath;    
+    }    
+})();}
+namespace {
+    return include $BOOT_FILEPATH;
 }
+

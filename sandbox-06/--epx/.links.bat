@@ -1,1 +1,0 @@
-mklink /J .\.local-plugins ..\..\plugins
