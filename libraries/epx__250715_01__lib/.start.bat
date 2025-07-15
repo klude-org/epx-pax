@@ -62,15 +62,6 @@ if %errorlevel%==0 pause
 goto :exit_ok
 :next_1
 
-:: Local Plugin
-:: if not exist %~dp0..\..\plugins\%FW__BOOT_PLUGIN%\.boot.bat goto :next_2
-:: call %~dp0..\..\plugins\%FW__BOOT_PLUGIN%\.boot.bat %*
-:: if %errorlevel%==0 goto :exit_ok
-:: echo %cmdcmdline% | findstr /i /c:" /c" >nul
-:: if %errorlevel%==0 pause
-:: goto :exit_ok
-:: :next_2
-
 set "FW__START_PHP=%~dp0\.start.php"
 
 :: Attempt Install Library
