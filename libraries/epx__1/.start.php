@@ -55,7 +55,7 @@ namespace {
                 global $_;
                 $_['LIB_TYPE'] ??= 'epx__250718_01__lib';
                 $_['LIB_NAME'] ??= \_\LIB_NAME_DEFAULT;
-                $plugin_dpath= \str_replace('\\','/',__DIR__);
+                $plugin_dpath= \str_replace('\\','/', \dirname(__DIR__));
                 $lib_type = $_['LIB_TYPE'];
                 $lib_name = "--epx{$_['LIB_NAME']}";
                 $lib_dpath = "{$plugin_dpath}/{$lib_name}";
