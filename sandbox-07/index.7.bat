@@ -23,15 +23,13 @@ cmd /k
 goto :exit_ok
 :no_cmd
 
-if "%FW__EPX_START_DIR%"=="" SET FW__EPX_START_DIR=%~dp0\--epx
-if "%FW__EPX_START_PHP%"=="" set FW__EPX_START_PHP=%~dp0\--epx\.start.php
-if exist "%FW__EPX_START_PHP%" goto :next_3
-if not exist %FW__START_DIR% mkdir %FW__START_DIR%
-curl --fail --globoff -o "%FW__EPX_START_PHP%" https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/epx__0/.start.php
+set FW__EPX_PHP=%FW__SITE_DIR%\.epx.php
+if exist "%FW__EPX_PHP%" goto :next_3
+curl --fail --globoff -o "%FW__EPX_PHP%" https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/.epx.php
 if %errorlevel%==0 goto :next_3_a
 echo [91m!!! EPX PHP DOWNLOAD ERROR[0m
 :next_3_a
-if exist "%FW__EPX_START_PHP%" goto :next_3
+if exist "%FW__EPX_PHP%" goto :next_3
 echo [91m!!! EPX PHP NOT FOUND[0m
 goto :exit_error
 :next_3
@@ -39,7 +37,7 @@ goto :exit_error
 :launch_php
 set FW__INDEX_PHP=%FW__SITE_DIR%\index.php
 if exist %FW__INDEX_PHP% goto :launch_php_1
-echo ^<?php (include '%FW__EPX_START_PHP%')();  > "%FW__INDEX_PHP%"
+echo ^<?php (include '%FW__EPX_PHP%')();  > "%FW__INDEX_PHP%"
 :launch_php_1
 rem [92mLaunching index.php[0m
 %FW__PHP_EXE% %FW__SITE_DIR%\index.php %*
