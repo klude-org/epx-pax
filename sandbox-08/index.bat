@@ -1,4 +1,4 @@
-set FW__DEBUG=batch-trace
+::set FW__DEBUG=batch-trace
 @echo off
 if "%FW__DEBUG%"=="batch-trace" echo on
 rem RUNNING: %~f0
@@ -18,6 +18,8 @@ goto :no_cmd
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 goto:launch_cmd
 goto :no_cmd
+:launch_cmd
+echo [92mEPX CMD Version 1.00 (C) Klude Pty Ltd. All Rights Reserved[0m
 rem [92mLaunching cmd[0m
 cmd /k
 goto :exit_ok
@@ -40,8 +42,8 @@ goto :exit_error
 set FW__INDEX_PHP=%FW__SITE_DIR%\index.php
 if exist %FW__INDEX_PHP% goto :launch_php_1
 echo ^<?php > "%FW__INDEX_PHP%"
-echo $_['LIB_NAME'] = ''; > "%FW__INDEX_PHP%"
-echo (include '%FW__EPX_START_PHP%')();  > "%FW__INDEX_PHP%"
+echo $_['LIB_NAME'] = ''; >> "%FW__INDEX_PHP%"
+echo (include '%FW__EPX_START_PHP%')();  >> "%FW__INDEX_PHP%"
 :launch_php_1
 rem [92mLaunching index.php[0m
 %FW__PHP_EXE% %FW__SITE_DIR%\index.php %*
