@@ -59,57 +59,23 @@ namespace {
                 $lib_type = $_['LIB_TYPE'];
                 $lib_name = "--epx{$_['LIB_NAME']}";
                 $lib_dpath = "{$plugin_dpath}/{$lib_name}";
+                $start_php_fpath = "{$lib_dpath}/.start.php";
                 if(!\is_dir($lib_dpath)){
-                    try{
-                        \is_dir($l_tmp_dpath = "{$plugin_dpath}/.local-".uniqid()) OR \mkdir($l_tmp_dpath, 0777, true);
-                        $url = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}.zip";
-                        $l_zip_fpath = "{$l_tmp_dpath}/downloaded.zip";
-                        $l_zip_dpath = "{$l_tmp_dpath}/extracted";
+                    if(!\is_file($start_php_fpath)){
+                        $url = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}/.start.php";
                         if(!($contents = \file_get_contents($url))){
                             throw new \Exception("Library '{$lib_type}': Failed to download repo from '{$url}'");
                         }
-                        if(\file_put_contents($l_zip_fpath, $contents) == false){
-                            throw new \Exception("Library '{$lib_type}': Failed to write zip '{$l_zip_fpath}'");
+                        \is_dir($lib_dpath) OR \mkdir($lib_dpath, 0777, true);
+                        if(\file_put_contents($start_php_fpath, $contents) == false){
+                            throw new \Exception("Library '{$lib_type}': Failed to write .start.php ");
                         }
-                        try{
-                            if (!(($zip = new \ZipArchive)->open($l_zip_fpath) === true)) {
-                                throw new \Exception("Library '{$lib_type}': Failed to open zip '{$l_zip_fpath}'");
-                            }
-                            if(!$zip->extractTo($l_zip_dpath)){
-                                throw new \Exception("Library '{$lib_type}': Failed to extract '{$l_zip_fpath}' to '{$l_zip_dpath}'");
-                            }
-                        } finally {
-                            $zip->close();
-                        }
-                        if(!\is_dir($lib_plugin_dpath = "{$l_zip_dpath}/{$lib_type}")){
-                            throw new \Exception("Library '{$lib_type}': Missing lib folder in '{$l_zip_dpath}'");
-                        }
-                        if(!\rename($lib_plugin_dpath, $lib_dpath)){
-                            throw new \Exception("Library '{$lib_type}': Unable to install '{$lib_name}'");
-                        }
-                    } finally {
-                        1 AND (function($d){if(\is_dir($d)){
-                            foreach(new \RecursiveIteratorIterator(
-                                new \RecursiveDirectoryIterator($d, \RecursiveDirectoryIterator::SKIP_DOTS)
-                                , \RecursiveIteratorIterator::CHILD_FIRST
-                            ) as $f) {
-                                if ($f->isDir()){
-                                    rmdir($f->getRealPath());
-                                } else {
-                                    unlink($f->getRealPath());
-                                }
-                            }
-                            rmdir($d);
-                        }})($l_tmp_dpath);
                     }
                 }
-                
-                if(!\is_file($start_php_fpath = "{$lib_dpath}/.start.php")){
+                if(!\is_file($start_php_fpath)){
                     throw new \Exception("Library '{$lib_type}': Missing .start.php");
                 }
-                
                 return $start_php_fpath;
-
             } catch (\Throwable $ex){
                 switch($intfc = $GLOBALS['INTFC']
                     ?? (empty($_SERVER['HTTP_HOST']) 
