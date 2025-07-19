@@ -184,8 +184,6 @@ exit /b 0
             if(!\is_dir($site_dir = \trim($_SERVER['FW__SITE_DIR'],'/'))){
                 throw new \Exception("Invalid Site DIR");
             }
-            $lib_type = \basename(__DIR__);
-            $lib_name = "--epx";
             $lib_dpath = \str_replace('\\','/',__DIR__);
             $start_php_fpath = "{$lib_dpath}/.start.php";
             $shell_bat_fpath = "{$site_dir}/.local/.shell.bat";
@@ -201,7 +199,7 @@ exit /b 0
             }
             if(!\is_file($start_php_fpath)){
                 \is_dir($d = \dirname($start_php_fpath)) OR \mkdir($d, 0777, true);
-                $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}";
+                $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/epx__1";
                 echo "[93mDownloading From '{$url_base}'[0m\n";
                 if(!($contents = \file_get_contents($url = "{$url_base}/.manifest.json"))){
                     throw new \Exception("Library --epx: Failed to download manifest from '{$url}'");
