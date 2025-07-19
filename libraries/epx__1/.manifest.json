@@ -6,7 +6,7 @@
         "std-shell/fw-php-cli.bat": true,
         "std-templates/.config.php": true,
         "std-templates/.htaccess": true,
-        "std-templates/.index.php": true,
+        "std-templates/index.php": true,
         ".lib.config.php": true,
         ".start.php": true
     }
