@@ -199,7 +199,7 @@ exit /b 0
                 SET "FX__CONFIG_LOADED=1"
                 BAT);
             }
-            if(!\is_dir($lib_dpath)){
+            if(!\is_file($start_php_fpath)){
                 \is_dir($d = \dirname($start_php_fpath)) OR \mkdir($d, 0777, true);
                 $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}";
                 echo "[93mDownloading From '{$url_base}'[0m\n";
