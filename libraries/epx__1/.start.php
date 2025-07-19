@@ -9,7 +9,7 @@ namespace {
     1 AND \ini_set('error_reporting', E_ALL);
     \defined('_\LIB_NAME_DEFAULT') OR \define('_\LIB_NAME_DEFAULT','');
     if(($_['LIB_NAME'] ?? '') == ''){
-        return include '.start-default.php';
+        return include '.start-0.php';
     } else if(\is_file($f = "--epx".($_['LIB_NAME'] ?? '').'/.start.php')){
         return include $f;
     } else if(\str_replace('\\','/',__FILE__) !== ($f = (function(){
@@ -78,6 +78,8 @@ namespace {
         }
     })())){
         return include $f;
-    } 
+    } else {
+        return include '.start-0.php';
+    }
 }
 #endregion
