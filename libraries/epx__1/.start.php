@@ -19,15 +19,40 @@ namespace {
             }
             
             if(!\is_dir($lib_dpath)){
-                if(!\is_file($start_php_fpath)){
-                    $url = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}/.start.php";
-                    if(!($contents = \file_get_contents($url))){
-                        throw new \Exception("Library '{$lib_type}': Failed to download repo from '{$url}'");
+                \is_dir($d = \dirname($start_php_fpath)) OR \mkdir($d, 0777, true);
+                $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}";
+                if(!($contents = \file_get_contents($url = "{$url_base}/.manifest.json"))){
+                    throw new \Exception("Library --epx: Failed to download manifest from '{$url}'");
                     }
-                    \is_dir($lib_dpath) OR \mkdir($lib_dpath, 0777, true);
-                    if(\file_put_contents($start_php_fpath, $contents) == false){
-                        throw new \Exception("Library '{$lib_type}': Failed to write .start.php ");
+                if(!($manifest = \json_decode($contents,true))){
+                    throw new \Exception("Library --epx: Failed to decode manifest from '{$url}'");
+                }
+                $failed = false;
+                foreach($manifest['files'] ?? [] as $rpath => $v){
+                    if(!($contents = \file_get_contents($url = "{$url_base}/{$rpath}"))){
+                        $failed = true;
+                    } else {
+                        \is_dir($d = \dirname($fpath = "{$lib_dpath}/{$rpath}")) OR \mkdir($d, 0777, true);
+                        if(\file_put_contents($fpath, $contents) == false){
+                            $failed = true;
+                        }
                     }
+                }
+                if($failed){
+                    1 AND (function($d){if(\is_dir($d)){
+                        foreach(new \RecursiveIteratorIterator(
+                            new \RecursiveDirectoryIterator($d, \RecursiveDirectoryIterator::SKIP_DOTS)
+                            , \RecursiveIteratorIterator::CHILD_FIRST
+                        ) as $f) {
+                            if ($f->isDir()){
+                                rmdir($f->getRealPath());
+                            } else {
+                                unlink($f->getRealPath());
+                            }
+                        }
+                        rmdir($d);
+                    }})($lib_dpath);
+                    throw new \Exception("Library --epx: Failed to install '{$url}'");
                 }
             }
             
