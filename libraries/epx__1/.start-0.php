@@ -956,7 +956,8 @@ namespace { return \class_exists(\_::class) ? function(){
         \http_response_code(404);
         while(\ob_get_level() > \_\OB_OUT){ @\ob_end_clean(); }
         \defined('_\SIG_ABORT') OR \define('_\SIG_ABORT', 0);
-        exit("404 Not Found: ".$this->rurp);
+        echo "404 Not Found: ".\_\REQ['rurp'];
+        exit(404);
     };
 
 })->bindTo((object)[]); }
