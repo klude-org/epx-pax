@@ -208,7 +208,7 @@ exit /b 0
                 \is_dir($d = \dirname($start_php_fpath)) OR \mkdir($d, 0777, true);
                 $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/epx__1";
                 echo "[93mDownloading From '{$url_base}'[0m\n";
-                if(!($contents = \file_get_contents($url = "{$url_base}/.manifest.json"))){
+                if(!($contents = \file_get_contents($url = "{$url_base}/.manifest.json"."?t=".time()))){
                     throw new \Exception("Library --epx: Failed to download manifest from '{$url}'");
                 }
                 if(!($manifest = \json_decode($contents,true))){
@@ -217,7 +217,8 @@ exit /b 0
                 $failed = false;
                 foreach($manifest['files'] ?? [] as $rpath => $v){
                     echo "[33mDownloading '{$rpath}'[0m";
-                    if(!($contents = \file_get_contents($url = "{$url_base}/{$rpath}"))){
+                    $url = \str_replace('#', '%23', "{$url_base}/{$rpath}")."?t=".time();
+                    if(!($contents = \file_get_contents($url))){
                         $failed = true;
                         echo "[91m Download Failed !!![0m\n";
                     } else {
@@ -231,7 +232,7 @@ exit /b 0
                     }
                 }
                 if($failed){
-                    throw new \Exception("Library --epx: Failed to install '{$url}'");
+                    throw new \Exception("Library --epx: Failed to install '{$url_base}'");
                 }
             }
             if(!\is_file($start_php_fpath)){
