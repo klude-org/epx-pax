@@ -12,8 +12,6 @@
         "std-templates/index.php":true,
         "__/-@cli.php":true,
         "__browser/launch-@cli.php":true,
-        "__php_ibs/server":true,
-        "__php_ibs/xdbg_server":true,
         "__php_ibs/server/-#.php":true,
         "__php_ibs/server/launch-@cli.php":true,
         "__php_ibs/server/start-@cli.php":true,
