@@ -8,7 +8,7 @@
         "std-templates/.htaccess": true,
         "std-templates/index.php": true,
         ".lib.config.php": true,
-        ".start-default.php": true,
+        ".start-0.php": true,
         ".start.php": true
     }
 }
