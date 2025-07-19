@@ -1,5 +1,6 @@
 {
     "files":{
+        "__/-@cli.php": true,
         "std-shell/fw-debug.bat": true,
         "std-shell/fw-ibs.bat": true,
         "std-shell/fw-info.bat": true,

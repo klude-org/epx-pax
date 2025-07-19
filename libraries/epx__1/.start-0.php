@@ -812,11 +812,155 @@ namespace {(function(){
 })();}
 #endregion
 # ##############################################################################
-#region LAUNCH
-namespace {
-    return function(){ 
-        \_::_()->route()();
+#region LAUNCH STD
+namespace { return \class_exists(\_::class) ? function(){ 
+    
+    return \_::_()->route();
+
+} : (function(){
+    
+    $this->fn = (object)[];
+    
+    $this->fn->auto_init = function($type){
+        foreach($_ENV['AUTO_INITS'][\_\INTFC][$type] ?? [] as $k => $v){
+            if(\is_numeric($k)){
+                o()->$v;
+            } else {
+                $v && o()->$k;
+            }
+        }
     };
-}
+    
+    $this->fn->resolve_file = function($path, $suffix){
+        if($f = (($suffix)
+            ? \stream_resolve_include_path($r[] = "{$path}/{$suffix}") 
+                ?: (\stream_resolve_include_path($r[] = "{$path}{$suffix}")
+            )
+            : \stream_resolve_include_path($r[] = "{$path}")
+        )){
+            return new \SplFileInfo($f);
+        }
+    };
+    
+    $this->fn->resolve_class_file = function($base_class, $path, $suffix){
+        if($class = \get_parent_class($base_class)){
+            do{
+                $j = \str_replace('\\','/', $class).($path ? '/' : '');
+                if($f = ($this->fn->resolve_file)("{$j}{$path}",$suffix)){
+                    return $f;
+                }
+            } while($class = \get_parent_class($class));
+        }
+    };
+
+    
+    $this->fn->resolve_sub_class = function($base_class, $sub_path){
+        if($class = \get_parent_class($base_class)){
+            do{
+                if(\class_exists($c = \str_replace('/','\\', "{$class}\\{$sub_path}"))){
+                    return $c;
+                }
+            } while($class = \get_parent_class($class));
+        }
+    };
+    
+    $panel = \_\REQ['panel'];
+    $rpath = \_\REQ['rpath'];
+    $intfx = \_\REQ['intfx'];
+    $com_root = 'o';
+    $__CTLR_FILE__ = null;
+    $__ENV__ = $this;
+    
+    ($this->fn->auto_init)('PRE_ROUTE');
+    if(!$rpath){
+        if($f = ($this->fn->resolve_file)("{$panel}", "-@{$intfx}.php")){
+            $__CTLR_FILE__ = $f;
+            $__ENV__ = $this;
+            $__CONTEXT__ = function(){
+                return $this;
+            };
+        } else if(\class_exists($panel)){
+            $com_class = $panel;
+            $context_path = "console";
+            $suffix = "-@{$intfx}.php";
+            $context_args = [];
+            if($context_class = ($this->fn->resolve_sub_class)($com_class, $context_path)){
+                if($f = ($this->fn->resolve_class_file)($com_class, $context_path, $suffix)){
+                    $__CTLR_FILE__ = $f;
+                    $__CONTEXT__ = function() use($context_class, $context_args, $com_class){
+                        return $context_class::_($com_class::_(), ...$context_args);
+                    };
+                }
+            }
+        }
+    } else {
+        if($f = ($this->fn->resolve_file)("{$panel}/{$rpath}", "-@{$intfx}.php")){
+            $__CTLR_FILE__ = $f;
+            $__ENV__ = $this;
+            $__CONTEXT__ = function(){
+                return $this;
+            };
+        } else if(
+            \preg_match("#^(?<p>(?<a>[^@]*)(?:(?<b>@(?<c>[^/]*))(?<d>.*))?)$#", $rpath, $m)
+            && \class_exists($com_class = \str_replace('/','\\', $com_path = "{$com_root}/".\trim($m['a'],'/')))
+        ){
+            if($m['b'] ?? null){
+                $index = \trim($m['c'],'/');
+                if($index === ''){
+                    $context_path = "pool";
+                    $context_args = [];
+                } else {
+                    $context_path = "item";
+                    $context_args = [$index];
+                }
+            } else {
+                $context_path = "entity";
+                $context_args = [];
+            }
+            
+            if($context_class = ($this->fn->resolve_sub_class)($com_class, "{$context_path}")){
+                $path = implode('/',\array_map(fn($k) => \trim($k,'/'), [$panel, $context_path, $m['d'] ?? '']));
+                $suffix = "-@{$intfx}.php";
+                if($f = ($this->fn->resolve_class_file)($com_class, $path, $suffix)){
+                    $__CTLR_FILE__ = $f;
+                    $__CONTEXT__ = function() use($context_class, $context_args, $com_class){
+                        return $context_class::_($com_class::_(), ...$context_args);
+                    };
+                }
+            }
+        }
+    }
+        
+    if($__CTLR_FILE__ instanceof \SplFileInfo){
+        $__ENV__ = $this;
+        $this->panel = \class_exists(\_\REQ['panel'])
+            ? $panel::_()
+            : (object)[]
+        ;            
+        return (function() use($__CTLR_FILE__, $__ENV__){
+            $tsp = \explode(PATH_SEPARATOR,get_include_path());
+            foreach($tsp as $d){
+                \is_file($f = "{$d}/.functions.php") AND include_once $f;
+            }
+            foreach(\array_reverse($tsp) as $d){
+                \is_file($f = "{$d}/.module.php") AND include_once $f;
+            }
+            if(\is_callable($o = (include $__CTLR_FILE__))){
+                $__ENV__->controller = $o;
+                ($o)($_REQUEST->ctrl_args ?? null);
+            }
+        })->bindTo($__CONTEXT__());
+    }        
+    
+    return function(){
+        \http_response_code(404);
+        while(\ob_get_level() > \_\OB_OUT){ @\ob_end_clean(); }
+        \defined('_\SIG_ABORT') OR \define('_\SIG_ABORT', 0);
+        exit("404 Not Found: ".$this->rurp);
+    };
+
+})->bindTo((object)[]); }
 #endregion
+# ##############################################################################
+
 

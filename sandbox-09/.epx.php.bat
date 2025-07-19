@@ -5,9 +5,13 @@ if "%FW__DEBUG%"=="batch-trace" echo on
 rem [93mRUNNING: %~f0[0m
 
 if "%FX__SITE_DIR%"=="" set FX__SITE_DIR=%~dp0
+if "%FW__SHELL_BAT%"=="" set FW__SHELL_BAT=%FX__SITE_DIR%\.local\.shell.bat
+if not exist "%FW__SHELL_BAT%" goto :shell_bat_done
+call %FW__SHELL_BAT%
+:shell_bat_done
+
 if "%FW__START_DIR%"=="" set FW__START_DIR=%~dp0--epx
 if "%FW__START_BAT%"=="" set FW__START_BAT=%~dp0--epx\.start.bat
-
 if exist "%FW__START_BAT%" goto :start_ready
 if not exist %FW__START_DIR% mkdir %FW__START_DIR%
 curl --fail --globoff -o "%FW__START_BAT%" https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/epx__1/.start.bat
@@ -22,7 +26,8 @@ goto :exit_error
 
 :start_ready
 call %FW__START_BAT% %*
-if %errorlevel%==0 goto :exit_ok
+::if %errorlevel%==0 goto :exit_ok
+goto :exit_ok
 
 :exit_error
 echo %cmdcmdline% | findstr /i /c:" /c" >nul

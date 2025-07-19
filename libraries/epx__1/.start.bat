@@ -1,6 +1,7 @@
 ::<?php echo "\r   \r"; if(0): ?>
 ::set FW__DEBUG=batch-trace
 @echo off
+if "%FW__DEBUG%"=="" set FW__DEBUG=%FX__DEBUG%
 if "%FW__DEBUG%"=="batch-trace" cls
 if "%FW__DEBUG%"=="batch-trace" echo on
 rem [93mRUNNING: %~f0[0m
@@ -47,6 +48,12 @@ if %errorlevel% NEQ 0 goto :exit_error
 :session_defined
 
 ::------------------------------------------------------------------------------
+if "%*" NEQ "" goto :normal_run
+echo %cmdcmdline% | findstr /i /c:" /c" >nul
+if %errorlevel%==0 goto :launch_cmd
+:normal_run
+
+::------------------------------------------------------------------------------
 rem [93mSelecting php.exe[0m
 call :get_php FW__PHP_EXE
 if "%1"==":fw" (
@@ -77,19 +84,19 @@ if "%1"==":fw" (
 )
 ::------------------------------------------------------------------------------
 set FW__ERROR=%errorlevel%
-if not exist "%FW__RET_BAT%" goto :no_env_values
+if not exist "%FW__RET_BAT%" goto :env_values_done
 rem [93mSetting returned env variables[0m
 call "%FW__RET_BAT%"
-if %errorlevel%==0 goto :exit_error
 del "%FW__RET_BAT%"
+if %errorlevel%==0 goto :env_values_done
+goto :exit_error
+:env_values_done
 set errorlevel=%FW__ERROR%
-:no_env_values
 if %errorlevel%==0 goto :exit_ok
 ::------------------------------------------------------------------------------
 :exit_error
 rem [93mRunning error handler[0m
-if %errorlevel%==2000 goto :launch_cmd
-echo [91m!!! Encountered An Error !!![0m
+echo [91m!!! Encountered Error: %errorlevel%!!![0m
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
 exit /b 1
@@ -235,7 +242,7 @@ exit /b 0
                 <?php 
                 0 AND \$_['LIB_TYPE'] = null;
                 1 AND \$_['LIB_NAME'] = '';
-                (include "{$start_php_fpath}")();
+                (include "{$start_php_fpath}")()();
                 PHP);
             }
             if(!\is_file($index_bat_fpath = "{$site_dir}/index.bat")){

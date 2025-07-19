@@ -13,6 +13,11 @@ namespace {
             0 AND \error_reporting(E_ALL);
             $_['LIB_TYPE'] ??= 'epx__250718_01__lib';
             $_['LIB_NAME'] ??= '';
+            if($_['LIB_NAME'] === true){
+                
+            } else if(\is_string($_['LIB_NAME'])){
+                
+            }
             $plugin_dpath= \str_replace('\\','/', \dirname(__DIR__));
             $lib_type = $_['LIB_TYPE'];
             $lib_name = "--epx{$_['LIB_NAME']}";
