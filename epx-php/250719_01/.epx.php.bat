@@ -1,39 +1,4 @@
 ::<?php echo "\r   \r"; if(0): ?>
-:: Installed: #__FW_INSTALLED__#
-:: #####################################################################################################################
-:: #region LICENSE
-::     /* 
-::                                                EPX-WIN-SHELL
-::     PROVIDER : KLUDE PTY LTD
-::     PACKAGE  : EPX-PAX
-::     AUTHOR   : BRIAN PINTO
-::     RELEASED : 2025-03-10
-::     
-::     The MIT License
-::     
-::     Copyright (c) 2017-2025 Klude Pty Ltd. https://klude.com.au
-::     
-::     of this software and associated documentation files (the "Software"), to deal
-::     in the Software without restriction, including without limitation the rights
-::     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-::     copies of the Software, and to permit persons to whom the Software is
-::     furnished to do so, subject to the following conditions:
-::     
-::     The above copyright notice and this permission notice shall be included in
-::     all copies or substantial portions of the Software.
-::     
-::     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-::     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-::     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-::     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-::     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-::     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-::     THE SOFTWARE.
-::         
-::     */
-:: #endregion
-:: # ###################################################################################################################
-:: # i'd like to be a tree - pilu (._.) // please keep this line in all versions - BP    
 ::set FW__DEBUG=batch-trace
 @echo off
 if "%FW__DEBUG%"=="batch-trace" cls
@@ -64,7 +29,16 @@ SET FW__EPX_START_DIR=%~dp0--epx
 set FW__EPX_START_PHP=%~dp0--epx\.start.php
 if "%FX__ORIGINAL_PATH%"=="" set "FX__ORIGINAL_PATH=%Path%"
 set PATH=%FW__EPX_START_DIR%\std-shell;%FX__ORIGINAL_PATH%
-call :do_setup
+:do_setup
+rem [93mLaunching setup[0m
+::strange block behaviour stupid parser design tons of gotchas >:(
+C:/xampp/current/php__xdbg/php.exe "%~f0" || (
+    echo [94mERROR LEVEL %errorlevel%[0m
+    echo [91mError during setup[0m
+    goto :exit_error
+)
+if %errorlevel%==0 goto :setup_done
+:setup_done
 call %FW__SHELL_BAT%
 if %errorlevel% NEQ 0 goto :exit_error
 :session_defined
@@ -112,9 +86,9 @@ if %errorlevel%==0 goto :exit_ok
 :exit_error
 rem [93mRunning error handler[0m
 if %errorlevel%==2000 goto :launch_cmd
+echo [91m!!! Encountered An Error !!![0m
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
-echo [92m!!! Encountered An Error !!![0m
 exit /b 1
 ::------------------------------------------------------------------------------
 :launch_cmd
@@ -187,15 +161,6 @@ for /f "tokens=1 delims==" %%A in ('set FW__') do (
 )
 exit /b 0
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:do_setup
-rem [93mLaunching setup[0m
-C:/xampp/current/php__xdbg/php.exe "%~f0"
-if %errorlevel%==0 goto :setup_done
-echo [91mError during setup[0m
-exit /b 1
-:setup_done
-exit /b 0
 <?php endif;
 (new class extends \stdClass {
     public function __invoke(){
@@ -205,6 +170,11 @@ exit /b 0
             1 AND \ini_set('display_errors', 0);
             1 AND \ini_set('display_startup_errors', 1);
             1 AND \ini_set('error_reporting', E_ALL);
+            0 AND error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED); //To silence warnings and notices but still catch fatal errors and exceptions:
+            1 AND error_reporting(E_ERROR); //catch only fatal error
+            0 AND set_error_handler(function($errno, $errstr, $errfile, $errline) { //handle manually
+                throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+            });
             if(empty($_SERVER['FW__SITE_DIR'])){
                 throw new \Exception("Invalid Site DIR");
             }
@@ -228,27 +198,68 @@ exit /b 0
                 SET "FX__CONFIG_LOADED=1"
                 BAT);
             }
-            if(!\is_file($start_php_fpath)){
+            if(!\is_dir($lib_dpath)){
                 \is_dir($d = \dirname($start_php_fpath)) OR \mkdir($d, 0777, true);
-                $url = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}/.start.php";
-                if(!($contents = \file_get_contents($url))){
-                    throw new \Exception("Library --epx: Failed to download repo from '{$url}'");
+                $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}";
+                echo "[93mDownloading From '{$url_base}'[0m\n";
+                if(!($contents = \file_get_contents($url = "{$url_base}/.manifest.json"))){
+                    throw new \Exception("Library --epx: Failed to download manifest from '{$url}'");
                 }
-                \is_dir($lib_dpath) OR \mkdir($lib_dpath, 0777, true);
-                if(\file_put_contents($start_php_fpath, $contents) == false){
-                    throw new \Exception("Library --epx: Failed to write .start.php ");
+                if(!($manifest = \json_decode($contents,true))){
+                    throw new \Exception("Library --epx: Failed to decode manifest from '{$url}'");
+                }
+                $failed = false;
+                foreach($manifest['files'] ?? [] as $rpath => $v){
+                    echo "[33mDownloading '{$rpath}'[0m";
+                    if(!($contents = \file_get_contents($url = "{$url_base}/{$rpath}"))){
+                        $failed = true;
+                        echo "[91m Download Failed !!![0m\n";
+                    } else {
+                        \is_dir($d = \dirname($fpath = "{$lib_dpath}/{$rpath}")) OR \mkdir($d, 0777, true);
+                        if(\file_put_contents($fpath, $contents) == false){
+                            $failed = true;
+                            echo "[91m Write Failed !!![0m\n";
+                        } else{
+                            echo "[32m Downloaded[0m\n";
+                        }
+                    }
+                }
+                if($failed){
+                    1 AND (function($d){if(\is_dir($d)){
+                        foreach(new \RecursiveIteratorIterator(
+                            new \RecursiveDirectoryIterator($d, \RecursiveDirectoryIterator::SKIP_DOTS)
+                            , \RecursiveIteratorIterator::CHILD_FIRST
+                        ) as $f) {
+                            if ($f->isDir()){
+                                rmdir($f->getRealPath());
+                            } else {
+                                unlink($f->getRealPath());
+                            }
+                        }
+                        rmdir($d);
+                    }})($lib_dpath);
+                    throw new \Exception("Library --epx: Failed to install '{$url}'");
                 }
             }
             if(!\is_file($start_php_fpath)){
                 throw new \Exception("Library --epx: Missing .start.php");
             }
-            if(!\is_file($site_index_fpath = "{$site_dir}/index.php")){
-                \file_put_contents($site_index_fpath, <<<PHP
+            if(!\is_file($index_php_fpath = "{$site_dir}/index.php")){
+                \file_put_contents($index_php_fpath, <<<PHP
                 <?php 
                 \$_['LIB_TYPE'] = null;
                 \$_['LIB_NAME'] = '';
                 (include "{$start_php_fpath}")();
                 PHP);
+            }
+            if(!\is_file($index_bat_fpath = "{$site_dir}/index.bat")){
+                $this_file = \realpath(__FILE__);
+                \file_put_contents($index_bat_fpath, <<<BAT
+                @echo off
+                rem RUNNING: %~f0
+                set FX__SITE_DIR=%~dp0
+                call "{$this_file}" %*
+                BAT);
             }
             exit(0);
         } catch (\Throwable $ex){
@@ -257,3 +268,5 @@ exit /b 0
         }
     }
 })();
+
+__halt_compiler();
