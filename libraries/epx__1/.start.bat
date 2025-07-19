@@ -247,6 +247,36 @@ exit /b 0
                 call "{$this_file}" %*
                 BAT);
             }
+            if(!\is_file($htaccess_fpath = "{$site_dir}/.htaccess")){
+                \file_put_contents($htaccess_fpath, <<<HTACCESS
+                <IfModule mod_rewrite.c>
+                RewriteEngine On
+                #-------------------------------------------------------------------------------
+                #* note: for auto https
+                # RewriteCond %{HTTPS} off 
+                # RewriteCond %{SERVER_PORT} 80
+                # RewriteRule (.*) https://%{SERVER_NAME}%{REQUEST_URI} [L]
+                #-------------------------------------------------------------------------------
+                #* note: if you need www
+                # RewriteCond %{HTTP_HOST} !^www\. [NC]
+                # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+                #-------------------------------------------------------------------------------
+                #* note: for basic http authorization
+                RewriteCond %{HTTP:Authorization} ^(.+)$
+                RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+                #-------------------------------------------------------------------------------
+                #* note: for content type 
+                # RewriteRule .* - [E=HTTP_CONTENT_TYPE:%{HTTP:Content-Type},L]
+                #-------------------------------------------------------------------------------
+                #* note: for pax legacy routing
+                RewriteCond %{REQUEST_URI} !(favicon.ico)|(/.*\-pub[\.\/].*)|(/.*\-asset[\.\/].*)
+                RewriteRule . index.php [L,QSA]
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteCond %{REQUEST_FILENAME} !-d
+                RewriteRule . index.php [L,QSA]
+                </IfModule>
+                HTACCESS);
+            }
             exit(0);
         } catch (\Throwable $ex){
             echo "[91m!!! {$ex->getMessage()} [0m\n";

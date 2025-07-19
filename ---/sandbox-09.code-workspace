@@ -8,6 +8,10 @@
 			"path": "../sandbox-09"
 		},
 		{
+			"name": "--master-lib--",
+			"path": "../libraries/epx__1"
+		},
+		{
 			"name": "--plugins--",
 			"path": "../plugins"
 		},
