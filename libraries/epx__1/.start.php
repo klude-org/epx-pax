@@ -78,8 +78,6 @@ namespace {
         }
     })())){
         return include $f;
-    } else {
-        return include '.start-default.php';
-    }
+    } 
 }
 #endregion
