@@ -1,0 +1,14 @@
+{
+    "files":{
+        "std-shell/fw-debug.bat": true,
+        "std-shell/fw-ibs.bat": true,
+        "std-shell/fw-info.bat": true,
+        "std-shell/fw-php-cli.bat": true,
+        "std-templates/fw-debug.bat": true,
+        "std-templates/.config.php": true,
+        "std-templates/.htaccess": true,
+        "std-templates/.index.php": true,
+        ".lib.config.php": true,
+        ".start.php": true
+    }
+}
