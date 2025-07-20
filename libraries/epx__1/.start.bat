@@ -79,7 +79,15 @@ if "%1"==":fw" (
         )
         goto :exit_ok
     ) else (
+        if "%1"==":update" (
+            %FW__PHP_EXE% "%~f0" --update || (
+                echo [94mERROR LEVEL %errorlevel%[0m
+                echo [91mError during Update[0m
+                goto :exit_error
+            )
+        ) else (
         %FW__PHP_EXE% %FW__INDEX_PHP% %*
+        )
     )
 )
 ::------------------------------------------------------------------------------
