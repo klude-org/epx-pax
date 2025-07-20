@@ -1,25 +1,70 @@
 {
-    "files":{
-        ".cmd.bat":true,
-        ".lib.config.php":true,
-        ".start-0.php":true,
-        "std-shell/fw-debug.bat":true,
-        "std-shell/fw-ibs.bat":true,
-        "std-shell/fw-info.bat":true,
-        "std-shell/fw-php-cli.bat":true,
-        "std-templates/.config.php":true,
-        "std-templates/.htaccess":true,
-        "std-templates/index.php":true,
-        "__/-@cli.php":true,
-        "__browser/launch-@cli.php":true,
-        "__php_ibs/server/-#.php":true,
-        "__php_ibs/server/launch-@cli.php":true,
-        "__php_ibs/server/start-@cli.php":true,
-        "__php_ibs/server/stop-@cli.php":true,
-        "__php_ibs/xdbg_server/-#.php":true,
-        "__php_ibs/xdbg_server/launch-@cli.php":true,
-        "__php_ibs/xdbg_server/start-@cli.php":true,
-        "__php_ibs/xdbg_server/stop-@cli.php":true,
-        ".start.php": true
+    "files": {
+        ".cmd.bat": {
+            "hash_sha256": "04dc5b2136328a0dcb189df97734c7c72e5e1227fa0c03469a6ce608f32f1b66"
+        },
+        ".lib.config.php": {
+            "hash_sha256": "fe5bcb54c56e0b9f456a060364dd28b2248f3a0e21c168d4ce9d009b73e83e3c"
+        },
+        ".start-0.php": {
+            "hash_sha256": "56c5ad1a487e624b33566ee7857e094667d4e4b7f0765102adce2cf85ca22d25"
+        },
+        ".start.bat": {
+            "hash_sha256": "95fee8b4dcb261884e7f04d13bb7658ad54d460492fd192c1733647105937477"
+        },
+        ".start.php": {
+            "hash_sha256": "db6970a032e9c2e7df2391f76b92869e6705553d99ff6c4a1a6f91a131988c36"
+        },
+        "std-shell/fw-debug.bat": {
+            "hash_sha256": "9336afb934e5fadbac6eb896b6cd255f58a8b0bbcae6568aa51f73bb81fb1912"
+        },
+        "std-shell/fw-ibs.bat": {
+            "hash_sha256": "09c1279e930e3fe7245496fdf86ea3490be3720828e0b0f36011ecfc1f6640c4"
+        },
+        "std-shell/fw-info.bat": {
+            "hash_sha256": "95bce972c46553b3c31b7f429252f29af1c38d65c4bed86ec60cb5aa3656bd71"
+        },
+        "std-shell/fw-php-cli.bat": {
+            "hash_sha256": "051a01b9235e0a44fbbbcf79d53e6707dd00a09c4c67871cb2a256d195ac6699"
+        },
+        "std-templates/.config.php": {
+            "hash_sha256": "fe5bcb54c56e0b9f456a060364dd28b2248f3a0e21c168d4ce9d009b73e83e3c"
+        },
+        "std-templates/.htaccess": {
+            "hash_sha256": "0d6490d1b0dac72c79009bde17c7745f01ef4a3a264476383ff514e31557a7fb"
+        },
+        "std-templates/index.php": {
+            "hash_sha256": "fb6c8550882bdfd32162bde6e63ebb7c0c4482c6bef861ddfe830e0784b6b15c"
+        },
+        "__/-@cli.php": {
+            "hash_sha256": "52e68c776a72e63ea908e5f50082831b68c46f40a2179b4f6b6d89cf16e7d59a"
+        },
+        "__browser/launch-@cli.php": {
+            "hash_sha256": "012a1a489252eab97f8260d2bbca90f60a0cc353b37c9aef1caca5d4596f1d4f"
+        },
+        "__php_ibs/server/-#.php": {
+            "hash_sha256": "3ac15ac1f0113a594b84bb7d714fbee1ed3ee3a290f2017894d845c37de05494"
+        },
+        "__php_ibs/server/launch-@cli.php": {
+            "hash_sha256": "ccffa6e0d9abf21e63f54e8fd07837177b6b98bfe98142c7a8394ebba4b0b398"
+        },
+        "__php_ibs/server/start-@cli.php": {
+            "hash_sha256": "f6b92aadf42e5a51c95d870ecc4abdfcc51fc8283c2d6e5464232de548aeed69"
+        },
+        "__php_ibs/server/stop-@cli.php": {
+            "hash_sha256": "34dc952a83b7d55f0de281ab58e488507ce253fee0deba893f2b21f2a57f2054"
+        },
+        "__php_ibs/xdbg_server/-#.php": {
+            "hash_sha256": "8e7087abaff9d6b22e8e998cc7464801c7274cf648e0971886ec2c8d3471d078"
+        },
+        "__php_ibs/xdbg_server/launch-@cli.php": {
+            "hash_sha256": "ccffa6e0d9abf21e63f54e8fd07837177b6b98bfe98142c7a8394ebba4b0b398"
+        },
+        "__php_ibs/xdbg_server/start-@cli.php": {
+            "hash_sha256": "f6b92aadf42e5a51c95d870ecc4abdfcc51fc8283c2d6e5464232de548aeed69"
+        },
+        "__php_ibs/xdbg_server/stop-@cli.php": {
+            "hash_sha256": "34dc952a83b7d55f0de281ab58e488507ce253fee0deba893f2b21f2a57f2054"
+        }
     }
 }
