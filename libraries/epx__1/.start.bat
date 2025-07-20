@@ -85,6 +85,7 @@ if "%1"==":fw" (
                 echo [91mError during Update[0m
                 goto :exit_error
             )
+            goto :exit_ok;
         ) else (
         %FW__PHP_EXE% %FW__INDEX_PHP% %*
         )
@@ -298,12 +299,12 @@ exit /b 0
                 PHP);
             }
             if(!\is_file($index_bat_fpath = "{$site_dir}/index.bat")){
-                $this_file = \realpath(__FILE__);
+                $epx_file = $_SERVER['FW__EPX_PHP_BAT'] ?? \realpath(__FILE__);
                 \file_put_contents($index_bat_fpath, <<<BAT
                 @echo off
                 rem RUNNING: %~f0
                 set FX__SITE_DIR=%~dp0
-                call "{$this_file}" %*
+                call "{$epx_file}" %*
                 BAT);
             }
             if(!\is_file($htaccess_fpath = "{$site_dir}/.htaccess")){
