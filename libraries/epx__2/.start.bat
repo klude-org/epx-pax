@@ -227,12 +227,14 @@ exit /b 0
     public function __invoke(){
         try {
             global $_;
+            
             if(empty($_SERVER['FW__SITE_DIR'])){
                 throw new \Exception("Invalid Site DIR");
             }
             if(!\is_dir($site_dir = \trim($_SERVER['FW__SITE_DIR'],'/'))){
                 throw new \Exception("Invalid Site DIR");
             }
+            $lib_type = $_SERVER['FW__EPX_LIB_TYPE'] ?? 'epx__2';
             $lib_dpath = \str_replace('\\','/',__DIR__);
             $start_php_fpath = "{$lib_dpath}/.start.php";
             $shell_bat_fpath = "{$site_dir}/.local/.shell.bat";
@@ -248,7 +250,7 @@ exit /b 0
             }
             if(!\is_file($start_php_fpath) || !empty($_REQUEST['--update'])){
                 \is_dir($d = \dirname($start_php_fpath)) OR \mkdir($d, 0777, true);
-                $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/epx__2";
+                $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/{$lib_type}";
                 echo "[93mDownloading From '{$url_base}'[0m\n";
                 
                 // Download and parse manifest
@@ -331,7 +333,7 @@ exit /b 0
                 \file_put_contents($index_php_fpath, <<<PHP
                 <?php 
                 0 AND \$_['LIB_TYPE'] = null;
-                1 AND \$_['LIB_NAME'] = '';
+                1 AND \$_['LIB_type'] = '';
                 (include "{$start_php_fpath}")()();
                 PHP);
             }
