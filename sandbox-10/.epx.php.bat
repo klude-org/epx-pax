@@ -38,9 +38,7 @@ goto :exit_ok
 :exit_error
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
-pause
 exit /b 1
 
 :exit_ok
-pause
 exit /b 0
