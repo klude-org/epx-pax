@@ -304,21 +304,29 @@ exit /b 0
                     }
                 }
 
-                // Remove extra files not in manifest
-                $iterator = new RecursiveIteratorIterator(
-                    new RecursiveDirectoryIterator($lib_dpath, FilesystemIterator::SKIP_DOTS),
-                    RecursiveIteratorIterator::CHILD_FIRST
-                );
-
-                foreach ($iterator as $file) {
-                    $relative = str_replace($lib_dpath . '/', '', $file->getPathname());
-                    if ($file->isFile() && !in_array($relative, $expected_files)) {
-                        echo "\e[91mRemoving stale file: '{$relative}'\e[0m\n";
-                        unlink($file->getPathname());
-                    }
-                    // Optionally remove empty directories
-                    elseif ($file->isDir()) {
-                        @rmdir($file->getPathname());
+                //disabled for now
+                if(0){
+                    // Remove extra files not in manifest
+                    $iterator = new RecursiveIteratorIterator(
+                        new RecursiveDirectoryIterator($lib_dpath, FilesystemIterator::SKIP_DOTS),
+                        RecursiveIteratorIterator::CHILD_FIRST
+                    );
+                    
+                    foreach ($iterator as $file) {
+                        $relative = \substr(\str_replace('\\','/', $file->getPathname()), strlen($lib_dpath) + 1);
+                        // leave out plugins
+                        if(\str_starts_with($relative,'epx__')){
+                            
+                        } else {
+                            if ($file->isFile() && !in_array($relative, $expected_files)) {
+                                echo "\e[91mRemoving stale file: '{$relative}'\e[0m\n";
+                                unlink($file->getPathname());
+                            }
+                            // Optionally remove empty directories
+                            elseif ($file->isDir()) {
+                                @rmdir($file->getPathname());
+                            }
+                        }
                     }
                 }
 

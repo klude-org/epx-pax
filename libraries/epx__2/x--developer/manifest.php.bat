@@ -27,7 +27,7 @@ exit /b 0
             if(
                 (\dirname($filePath) !== __DIR__)
                 && $filePath != $manifest_json
-                && $relativePath != '.start.bat'
+                //&& $relativePath != '.start.bat'
             ){
                 $manifest_files[$relativePath] = [ 'hash_sha256' => \hash_file('sha256', $filePath) ];
             }
