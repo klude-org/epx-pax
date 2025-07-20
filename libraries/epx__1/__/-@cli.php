@@ -1,1 +1,1 @@
-<?php 
+<?=__FILE__.PHP_EOL; 

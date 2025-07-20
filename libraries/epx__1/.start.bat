@@ -50,7 +50,14 @@ if %errorlevel% NEQ 0 goto :exit_error
 ::------------------------------------------------------------------------------
 if "%*" NEQ "" goto :normal_run
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
-if %errorlevel%==0 goto :launch_cmd
+if %errorlevel% NEQ 0 goto :normal_run
+if defined FY__CLI_LAUNCHED goto :normal_run
+set FY__CLI_LAUNCHED=1
+:launch_cmd
+rem [92mLaunching cmd[0m
+echo [92mEPX CMD Version 1.00 (C) Klude Pty Ltd. All Rights Reserved[0m
+cmd /k
+goto :exit_ok
 :normal_run
 
 ::------------------------------------------------------------------------------
@@ -109,12 +116,6 @@ echo [91m!!! Encountered Error: %errorlevel%!!![0m
 echo %cmdcmdline% | findstr /i /c:" /c" >nul
 if %errorlevel%==0 pause
 exit /b 1
-::------------------------------------------------------------------------------
-:launch_cmd
-rem [92mLaunching cmd[0m
-echo [92mEPX CMD Version 1.00 (C) Klude Pty Ltd. All Rights Reserved[0m
-cmd /k
-exit /b 0
 ::------------------------------------------------------------------------------
 :exit_ok
 exit /b 0
