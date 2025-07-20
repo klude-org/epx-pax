@@ -173,18 +173,50 @@ exit /b 0
 
 <?php endif;
 (new class extends \stdClass {
+    
+    public function __construct(){
+        global $_;
+        (isset($_) && \is_array($_)) OR $_ = [];
+        1 AND \ini_set('display_errors', 0);
+        1 AND \ini_set('display_startup_errors', 1);
+        1 AND \ini_set('error_reporting', E_ALL);
+        0 AND error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED); //To silence warnings and notices but still catch fatal errors and exceptions:
+        1 AND error_reporting(E_ERROR); //catch only fatal error
+        0 AND set_error_handler(function($errno, $errstr, $errfile, $errline) { //handle manually
+            throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+        });
+        $_REQUEST = (function(){
+            $parsed = [];
+            $key = null;
+            $args = \array_slice($argv = $_SERVER['argv'] ?? [], 1);
+            foreach ($args as $arg) {
+                if ($key !== null) {
+                    $parsed[$key] = $arg;
+                    $key = null;
+                } else if(\str_starts_with($arg, '-')){
+                    if(\str_ends_with($arg, ':')){
+                        $key = \substr($arg,0,-1);
+                    } else if(\str_contains($arg,':')) {
+                        [$k, $v] = \explode(':', $arg);
+                        $parsed[$k] = $v;
+                    } else {
+                        $parsed[$arg] = true;
+                    }
+                } else {
+                    $parsed[] = $arg;
+                }
+            }
+            if ($key !== null) {
+                $parsed[$key] = true;
+            }
+            $parsed[0] ??= '/';
+            return $parsed;
+        })();
+    }
+    
     public function __invoke(){
         try {
             global $_;
-            (isset($_) && \is_array($_)) OR $_ = [];
-            1 AND \ini_set('display_errors', 0);
-            1 AND \ini_set('display_startup_errors', 1);
-            1 AND \ini_set('error_reporting', E_ALL);
-            0 AND error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED); //To silence warnings and notices but still catch fatal errors and exceptions:
-            1 AND error_reporting(E_ERROR); //catch only fatal error
-            0 AND set_error_handler(function($errno, $errstr, $errfile, $errline) { //handle manually
-                throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-            });
             if(empty($_SERVER['FW__SITE_DIR'])){
                 throw new \Exception("Invalid Site DIR");
             }
@@ -204,7 +236,7 @@ exit /b 0
                 SET "FX__CONFIG_LOADED=1"
                 BAT);
             }
-            if(!\is_file($start_php_fpath)){
+            if(!\is_file($start_php_fpath) || !empty($_REQUEST['--update'])){
                 \is_dir($d = \dirname($start_php_fpath)) OR \mkdir($d, 0777, true);
                 $url_base = "https://raw.githubusercontent.com/klude-org/epx-pax/main/libraries/epx__1";
                 echo "[93mDownloading From '{$url_base}'[0m\n";
@@ -216,20 +248,31 @@ exit /b 0
                 }
                 $failed = false;
                 foreach($manifest['files'] ?? [] as $rpath => $v){
-                    echo "[33mDownloading '{$rpath}'[0m";
-                    $url = \str_replace('#', '%23', "{$url_base}/{$rpath}")."?t=".time();
-                    if(!($contents = \file_get_contents($url))){
-                        $failed = true;
-                        echo "[91m Download Failed !!![0m\n";
+                    $fpath = "{$lib_dpath}/{$rpath}";
+                    if(
+                        \file_exists($fpath)
+                        && \is_array($v)
+                        && !empty($v['hash_sha256'])
+                        && \hash_file('sha256',$fpath) == $v['hash_sha256']
+                    ){
+                        echo "[33m'{$rpath}' Skipping hash identical[0m\n";
                     } else {
-                        \is_dir($d = \dirname($fpath = "{$lib_dpath}/{$rpath}")) OR \mkdir($d, 0777, true);
-                        if(\file_put_contents($fpath, $contents) == false){
+                        echo "[33m'{$rpath}' Downloading: [0m";
+                        $url = \str_replace('#', '%23', "{$url_base}/{$rpath}")."?t=".time();
+                        if(!($contents = \file_get_contents($url))){
                             $failed = true;
-                            echo "[91m Write Failed !!![0m\n";
-                        } else{
-                            echo "[32m Downloaded[0m\n";
-                        }
+                            echo "[91m Download Failed !!![0m\n";
+                        } else {
+                            \is_dir($d = \dirname($fpath)) OR \mkdir($d, 0777, true);
+                            if(\file_put_contents($fpath, $contents) == false){
+                                $failed = true;
+                                echo "[91m Write Failed !!![0m\n";
+                            } else{
+                                echo "[32m Downloaded[0m\n";
+                            }
+                        }    
                     }
+                    
                 }
                 if($failed){
                     throw new \Exception("Library --epx: Failed to install '{$url_base}'");
