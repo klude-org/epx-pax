@@ -1,0 +1,85 @@
+{
+    "files": {
+        ".cmd.bat": {
+            "hash_sha256": "04dc5b2136328a0dcb189df97734c7c72e5e1227fa0c03469a6ce608f32f1b66"
+        },
+        ".htaccess": {
+            "hash_sha256": "ac1be8da32ef2fbc059d350b34c5ec490639caf291bad4d14dab1a3d00d37272"
+        },
+        ".lib.config.php": {
+            "hash_sha256": "fe5bcb54c56e0b9f456a060364dd28b2248f3a0e21c168d4ce9d009b73e83e3c"
+        },
+        ".start-0.php": {
+            "hash_sha256": "56c5ad1a487e624b33566ee7857e094667d4e4b7f0765102adce2cf85ca22d25"
+        },
+        ".start.php": {
+            "hash_sha256": "db6970a032e9c2e7df2391f76b92869e6705553d99ff6c4a1a6f91a131988c36"
+        },
+        "index.bat": {
+            "hash_sha256": "408908ce14716008b3f2c0fe9f8afebb8e060973aa85cc00012d34e70e014080"
+        },
+        "index.php": {
+            "hash_sha256": "fcb08d595b4f5872be8b156263ce74873b31992dac3e0420543a652418e24b3b"
+        },
+        "std-shell/fw-debug.bat": {
+            "hash_sha256": "aa534cc17094175100b90b6606db4a13084389764f278414e26df87d923644a6"
+        },
+        "std-shell/fw-ibs.bat": {
+            "hash_sha256": "54a7ae34e0261f62c4427c6e09ee616de7abc80c09e5277363aad050603d7a3f"
+        },
+        "std-shell/fw-info.bat": {
+            "hash_sha256": "52d451ed0bfe4dcbe412319c783bbb60f6c087540ee12a86202098a0ef59356a"
+        },
+        "std-shell/fw-php-cli.bat": {
+            "hash_sha256": "4e5b217c95f77998a9759cade258a97865550ce4e96ab2da0871381992c2a294"
+        },
+        "std-templates/.config.php": {
+            "hash_sha256": "fe5bcb54c56e0b9f456a060364dd28b2248f3a0e21c168d4ce9d009b73e83e3c"
+        },
+        "std-templates/.htaccess": {
+            "hash_sha256": "ac1be8da32ef2fbc059d350b34c5ec490639caf291bad4d14dab1a3d00d37272"
+        },
+        "std-templates/index.php": {
+            "hash_sha256": "79b1b66c5b57e30a693e3eef03b1d883bb2a3b6439bc7926da7ceec88b40868c"
+        },
+        "__/-@cli.php": {
+            "hash_sha256": "2b315d26be528b6333c7411d95c3fe131e0e3a760ab6d180f60a9212a4cad492"
+        },
+        "__/test-@.php": {
+            "hash_sha256": "0e9e6f46e15a6f4df6f87ae65146e59166ee50e7c881af290c9a3256bb413b7c"
+        },
+        "__browser/launch-@cli.php": {
+            "hash_sha256": "f78e0e889f92f4dfb4a16ce602233b991ba1fb0aee6d595587b2393168ab9b88"
+        },
+        "__php_ibs/server-#.php": {
+            "hash_sha256": "41c6ccf7499a7389e12901f209264e8c9d4d5891b5b98b964aec53cb81afffb3"
+        },
+        "__php_ibs/server_01-#.php": {
+            "hash_sha256": "f216255e9a017bbfccbf63ea3bdfac49a4e1929d2a2268b616d3f8d1ce5c9835"
+        },
+        "__php_ibs/std_server/-#.php": {
+            "hash_sha256": "3624854d059b4adb02c1c4abea2b73f83d8edd25689d870f00fa551ed4c4f3ff"
+        },
+        "__php_ibs/std_server/launch-@cli.php": {
+            "hash_sha256": "6de51d5cf2a46fb40f8f39e9f899af478988cf46a8824955dd211c847145a205"
+        },
+        "__php_ibs/std_server/start-@cli.php": {
+            "hash_sha256": "8824efa92df1f8bdbbbe5dc06a61c5a0cc1ca8bd85bb27ca8d1e9315216cfb20"
+        },
+        "__php_ibs/std_server/stop-@cli.php": {
+            "hash_sha256": "0d5798ca6292a3796ed239f80a4d91ff33083fd453f048e6e29e200b7a8de686"
+        },
+        "__php_ibs/xdbg_server/-#.php": {
+            "hash_sha256": "a2ab7154140ce6310f58275a17a4015d77a5007e8e4d6b489070fc79cdb3ba56"
+        },
+        "__php_ibs/xdbg_server/launch-@cli.php": {
+            "hash_sha256": "8afadc96ae88b1e1e4c0935ffe3580c3e7d1a80eb72c37be88739585566eab2c"
+        },
+        "__php_ibs/xdbg_server/start-@cli.php": {
+            "hash_sha256": "8b2eef37c5bf8d84ff127d5ef87bb99120e82a30f0c208dc4746bd20318d47bf"
+        },
+        "__php_ibs/xdbg_server/stop-@cli.php": {
+            "hash_sha256": "46dd8507d529eb05d56f6557d44ac0a9f46050d6a595941c7538a882303f0929"
+        }
+    }
+}
